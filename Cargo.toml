@@ -5,6 +5,7 @@ members = [
     "crates/tui",
     "plugins/conversations",
     "plugins/inbox",
+    "plugins/usage",
 ]
 
 [workspace.package]

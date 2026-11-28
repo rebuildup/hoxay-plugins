@@ -3,10 +3,11 @@ name = "Usage"
 version = "0.6.0"
 min_herdr_version = "0.9.0"
 description = "Token usage aggregation over the rebuildup.conversations normalized index: per provider/model/host/project/session/pane totals, subscription quota/reset reports, quota-vs-measured divergence, and clearly-labeled estimated API cost — all with honest missing-data reporting under herdr-plugins.usage/v1."
-platforms = ["linux", "macos", "windows"]
+platforms = ["macos"]
 
-# No build step: the plugin is dependency-free TypeScript executed by Bun
-# (runtime prerequisite, see plugins/usage/README.md).
+# No build step for normal installs: the plugin ships a committed
+# prebuilt native binary (ADR-0035). Verified platform: macOS arm64 only;
+# other platforms are declared honestly once their binaries exist.
 #
 # Read-only aggregation: all commands are CLI-invoked; the plugin keeps
 # no durable state of its own (totals are recomputed from the
@@ -20,13 +21,13 @@ platforms = ["linux", "macos", "windows"]
 [[panes]]
 id = "main"
 title = "Usage"
-platforms = ["linux", "macos", "windows"]
+platforms = ["macos"]
 placement = "tab"
-command = ["bun", "run", "src/tui.ts", "main"]
+command = ["./bin/usage", "tui", "main"]
 
 [[actions]]
 id = "open"
 title = "Usage: open UI"
 description = "Open the usage reports browser (usage, quota, cost, divergence) in a herdr tab."
 contexts = ["workspace", "pane"]
-command = ["bun", "run", "src/tui.ts", "--open"]
+command = ["./bin/usage", "tui", "--open"]

@@ -1,0 +1,33 @@
+# scenario=main step=14-cost size=110x32 bg_rows=[]
+ cost estimate — provider: all · window: all time
+totals:
+  events=1,651 · sessions_with_usage=25
+  tokens: in=98,643,519 out=24,564,340 cache_read=330,790,854 cache_write=64,553,588 total=518,552,301
+  provider-reported cost: (not reported) over 0 event(s) — not a bill
+
+cost (ESTIMATE — list-price math, never a bill):
+  estimated_cost_usd: $525.0882
+  estimate_complete: false
+  priced_models=6 · unpriced_models=1
+pricing: ok ·
+source=https://raw.githubusercontent.com/BerriAI/litellm/main/model_prices_and_context_window.json ·
+known_models=4,964 · user_overrides=0
+estimated_cost_usd is a list-price ESTIMATE computed from the model pricing table (LiteLLM snapshot or user
+modelPrices overrides) over standard token rates. It is not a bill, invoice, or subscription charge: it
+excludes speed premiums, context-tier repricing, provider discounts, taxes, and quota consumption.
+provider_reported_cost_usd is a separate provider-reported figure and is never blended in. Models without a
+rate report unpriced — see cost.unpriced_models.
+
+coverage: sessions=25 ok=25 issues=0 stale=2 events_missing=0
+  providers:
+    claude: status=supported sessions=10 ok=10 issues=0 usage_events=10
+    codex: status=supported sessions=9 ok=9 issues=0 usage_events=9
+    opencode: status=supported sessions=6 ok=6 issues=0 usage_events=6
+
+breakdowns:
+  by_provider:
+    claude                       ev=    659 in=39,039,805 out= 9,791,820 total= 203,302,311
+    codex                        ev=    603 in=35,634,946 out= 9,109,079 total= 193,409,875
+
+
+─┘↓/jk scroll · r reload · w window · p provider · f refresh · b breakdowns · esc back

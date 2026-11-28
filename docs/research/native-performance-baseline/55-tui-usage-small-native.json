@@ -1,0 +1,53 @@
+{
+  "label": "usage-tui-report-small-native",
+  "command": "plugins/usage/bin/usage tui",
+  "runs": 12,
+  "warmup": 2,
+  "pty": "120x40",
+  "first_byte_ms": {
+    "n": 12,
+    "min": 5.0,
+    "p50": 12.0,
+    "p95": 42.6,
+    "p99": 42.6,
+    "max": 42.6,
+    "mean": 17.3,
+    "stdev": 10.4
+  },
+  "advance_ms": {
+    "n": 12,
+    "min": 5.4,
+    "p50": 13.6,
+    "p95": 44.2,
+    "p99": 44.2,
+    "max": 44.2,
+    "mean": 19.3,
+    "stdev": 11.0
+  },
+  "data_usable_ms": {
+    "n": 12,
+    "min": 274.9,
+    "p50": 442.4,
+    "p95": 799.6,
+    "p99": 799.6,
+    "max": 799.6,
+    "mean": 461.7,
+    "stdev": 137.4
+  },
+  "marker_found": 12,
+  "exit_codes": [0],
+  "maxrss_kb": {
+    "n": 0
+  },
+  "pgid_peak_rss_kb": {
+    "n": 12,
+    "min": 9600,
+    "p50": 9744,
+    "p95": 13984,
+    "p99": 13984,
+    "max": 13984,
+    "mean": 10946.7,
+    "stdev": 1783.5
+  },
+  "note": "first_byte = first PTY output; data_usable = first output matching --marker regex (post-load content); maxrss = top-level child only; pgid_peak_rss = summed RSS of process group sampled ~30ms (includes TUI-spawned CLI children, double-counts shared pages)"
+}

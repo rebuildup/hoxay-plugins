@@ -41,7 +41,7 @@ Overridable via `--conversations-state-dir` /
 
 1. `herdr plugin list --json` → find `plugin_id == "rebuildup.usage"` →
    `plugin_root`.
-2. `cd <plugin_root> && bun run src/cli.ts capability` → verify
+2. `cd <plugin_root> && ./bin/usage capability` → verify
    `contract == "herdr-plugins.usage/v1"` and `sources` reports
    `conversations-index` `available`.
 
@@ -49,15 +49,15 @@ Overridable via `--conversations-state-dir` /
 
 ```bash
 cd <plugin_root>
-bun run src/cli.ts capability
-bun run src/cli.ts usage [--pane PANE] [--session-id ID] [--provider ID] \
+./bin/usage capability
+./bin/usage usage [--pane PANE] [--session-id ID] [--provider ID] \
   [--from ISO] [--to ISO] [--session NAME] [--socket PATH] [--timeout MS] \
   [--offline] [--conversations-root DIR] [--conversations-state-dir DIR]
-bun run src/cli.ts quota [--provider ID] [--refresh] [--timeout MS]
-bun run src/cli.ts cost [--pane PANE] [--session-id ID] [--provider ID] \
+./bin/usage quota [--provider ID] [--refresh] [--timeout MS]
+./bin/usage cost [--pane PANE] [--session-id ID] [--provider ID] \
   [--from ISO] [--to ISO] [--session NAME] [--socket PATH] [--timeout MS] \
   [--offline] [--refresh] [--conversations-root DIR] [--conversations-state-dir DIR]
-bun run src/cli.ts divergence [--pane PANE] [--session-id ID] [--provider ID] \
+./bin/usage divergence [--pane PANE] [--session-id ID] [--provider ID] \
   [--from ISO] [--to ISO] [--session NAME] [--socket PATH] [--timeout MS] \
   [--offline] [--refresh] [--conversations-root DIR] [--conversations-state-dir DIR]
 ```
@@ -345,7 +345,7 @@ conversations index — it does not resolve the conversations plugin and
 needs no herdr session at all.
 
 ```bash
-bun run src/cli.ts quota [--provider ID] [--refresh] [--timeout MS]
+./bin/usage quota [--provider ID] [--refresh] [--timeout MS]
 ```
 
 ```json
@@ -540,7 +540,7 @@ aggregation as `usage` (same selectors/window), then prices each
 **always labeled as an estimate — never a bill**.
 
 ```bash
-bun run src/cli.ts cost [--pane PANE] [--session-id ID] [--provider ID] \
+./bin/usage cost [--pane PANE] [--session-id ID] [--provider ID] \
   [--from ISO] [--to ISO] [--session NAME] [--socket PATH] [--timeout MS] \
   [--offline] [--refresh] [<source flags>]
 ```
@@ -665,7 +665,7 @@ provider. Exit semantics match `usage`/`quota`: per-provider outcomes
 are data, not errors.
 
 ```bash
-bun run src/cli.ts divergence [--provider ID] [--from ISO] [--to ISO] \
+./bin/usage divergence [--provider ID] [--from ISO] [--to ISO] \
   [--refresh] [--offline] [<usage selector/source flags>]
 ```
 

@@ -1,0 +1,17 @@
+{
+  "label": "usage-opencode-native",
+  "command": "plugins/usage/bin/usage usage --offline --provider opencode",
+  "runs": 30,
+  "warmup": 3,
+  "failures": 0,
+  "wall_ms": {
+    "n": 30,
+    "min": 340,
+    "p50": 438,
+    "p95": 454,
+    "p99": 455,
+    "max": 455,
+    "mean": 428.6,
+    "stdev": 24.3
+  }
+}

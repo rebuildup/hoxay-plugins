@@ -1,0 +1,33 @@
+# scenario=main step=07-breakdowns size=110x32 bg_rows=[]
+ breakdowns
+❯ by_provider                                                                                               1
+  by_model                                                                                                  2
+  by_host                                                                                                   1
+  by_project                                                                                                5
+  by_session                                                                                                9
+  by_pane                                                                                                   9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ↑↓/jk move · / filter · enter select · esc back

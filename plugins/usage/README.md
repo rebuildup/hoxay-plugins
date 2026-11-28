@@ -9,7 +9,12 @@ Token usage aggregation for herdr panes
 herdr plugin install rebuildup/hoxay-plugins/plugins/usage
 ```
 
-Prerequisites: herdr ≥ 0.9.0, Bun on `PATH`, and the
+Runtime: a committed prebuilt native binary (`bin/usage`, Rust —
+Issue #294, ADR-0035). No Bun or toolchain required to install or run.
+Verified platform: macOS arm64 (`platforms = ["macos"]` — honest until
+Linux/Windows binaries exist and are verified).
+
+Prerequisites: herdr ≥ 0.9.0 and the
 [`rebuildup.conversations`](../conversations/) plugin installed and
 indexed (`conversations index`/`refresh`) — `usage` aggregates its
 normalized event index through the public read-only contract, never
@@ -71,14 +76,14 @@ reconciling them.
 
 ```bash
 # from the plugin root (see `herdr plugin list --json` → plugin_root)
-bun run src/cli.ts capability
-bun run src/cli.ts usage [--pane PANE] [--session-id ID] [--provider ID] \
+./bin/usage capability
+./bin/usage usage [--pane PANE] [--session-id ID] [--provider ID] \
   [--from ISO] [--to ISO] [--session NAME] [--socket PATH] [--timeout MS] \
   [--offline] [--conversations-root DIR] [--conversations-state-dir DIR]
-bun run src/cli.ts quota [--provider ID] [--refresh] [--timeout MS]
-bun run src/cli.ts divergence [--provider ID] [--from ISO] [--to ISO] \
+./bin/usage quota [--provider ID] [--refresh] [--timeout MS]
+./bin/usage divergence [--provider ID] [--from ISO] [--to ISO] \
   [--refresh] [--offline] [<usage selector flags>]
-bun run src/cli.ts cost [--provider ID] [--from ISO] [--to ISO] \
+./bin/usage cost [--provider ID] [--from ISO] [--to ISO] \
   [--refresh] [--offline] [<usage selector flags>]
 ```
 

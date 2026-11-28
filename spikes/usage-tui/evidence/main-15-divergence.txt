@@ -1,0 +1,33 @@
+# scenario=main step=15-divergence size=110x32 bg_rows=[]
+ quota vs measured divergence — provider: all · window: all time
+  note: comparisons cover direct provider quota sources only; hub (cliproxy) readings under `hubs` are exclud…
+  note: quota used_percent and measured token sums are different units from different sources — verdict `diff…
+❯ claude                                                                                                    qu
+  codex                                                                                                     di
+  opencode                                                                                                  qu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+─┘↓/jk scroll · r reload · w window · p provider · esc back

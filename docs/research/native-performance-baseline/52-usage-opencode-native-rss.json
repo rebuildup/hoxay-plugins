@@ -1,0 +1,28 @@
+{
+  "label": "usage-opencode-native-rss",
+  "command": "plugins/usage/bin/usage usage --offline --provider opencode",
+  "runs": 10,
+  "warmup": 2,
+  "failures": 0,
+  "wall_ms": {
+    "n": 10,
+    "min": 404,
+    "p50": 439,
+    "p95": 462,
+    "p99": 462,
+    "max": 462,
+    "mean": 437.9,
+    "stdev": 18.9
+  },
+  "rss_kb": {
+    "n": 10,
+    "min": 13360,
+    "p50": 13408,
+    "p95": 13456,
+    "p99": 13456,
+    "max": 13456,
+    "mean": 13406.4,
+    "stdev": 28.1
+  },
+  "rss_note": "max RSS of the top-level process only (children not attributed); /usr/bin/time -l overhead included"
+}

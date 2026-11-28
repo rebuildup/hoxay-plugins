@@ -1,0 +1,33 @@
+# scenario=main step=03-usage-scroll size=110x32 bg_rows=[]
+ usage — provider: all · window: all time
+  events=1,651 · sessions_with_usage=25
+  tokens: in=98,643,519 out=24,564,340 cache_read=330,790,854 cache_write=64,553,588 total=518,552,301
+  provider-reported cost: (not reported) over 0 event(s) — not a bill
+
+cache tokens:
+  claude: reported · read=128,656,502 write=25,814,184
+  codex: reported · read=125,039,195 write=23,626,655
+  opencode: reported · read=77,095,157 write=15,112,749
+
+coverage: sessions=25 ok=25 issues=0 stale=2 events_missing=0
+  providers:
+    claude: status=supported sessions=10 ok=10 issues=0 usage_events=10
+    codex: status=supported sessions=9 ok=9 issues=0 usage_events=9
+    opencode: status=supported sessions=6 ok=6 issues=0 usage_events=6
+
+breakdowns:
+  by_provider:
+    claude                       ev=    659 in=39,039,805 out= 9,791,820 total= 203,302,311
+    codex                        ev=    603 in=35,634,946 out= 9,109,079 total= 193,409,875
+    opencode                     ev=    389 in=23,968,768 out= 5,663,441 total= 121,840,115
+  by_model:
+    gpt-5.2-codex                ev=    326 in=20,057,413 out= 5,105,750 total= 106,549,143
+    gpt-5.1-codex-mini           ev=    277 in=15,577,533 out= 4,003,329 total=  86,860,732
+    claude-opus-4-1              ev=    238 in=14,653,279 out= 3,593,280 total=  72,683,900
+    claude-sonnet-4-5            ev=    221 in=12,577,766 out= 3,189,197 total=  69,397,928
+    openai/gpt-5.2               ev=    203 in=12,534,734 out= 2,800,124 total=  62,785,500
+    claude-haiku-4-5             ev=    200 in=11,808,760 out= 3,009,343 total=  61,220,483
+    anthropic/claude-sonnet-4-5  ev=    186 in=11,434,034 out= 2,863,317 total=  59,054,615
+
+
+ ↑↓/jk scroll · r reload · w window · p provider · b breakdowns · esc back

@@ -13,7 +13,7 @@
  * The child process gets `HERDR_PLUGIN_STATE_DIR`/`_CONFIG_DIR` pointed
  * at the *inbox* plugin dirs and `HERDR_PLUGIN_ID=rebuildup.inbox` — the
  * ambient values belong to rebuildup.projects and must never redirect
- * inbox state (same env-pinning as plugins/usage/src/source.ts).
+ * inbox state (same env-pinning as plugins/usage (ADR-0013)).
  */
 
 import { spawn } from "node:child_process";

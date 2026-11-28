@@ -1,0 +1,33 @@
+# scenario=main step=06-provider-filter size=110x32 bg_rows=[]
+ usage — provider: claude · window: all time
+totals:
+  events=659 · sessions_with_usage=10
+  tokens: in=39,039,805 out=9,791,820 cache_read=128,656,502 cache_write=25,814,184 total=203,302,311
+  provider-reported cost: (not reported) over 0 event(s) — not a bill
+
+cache tokens:
+  claude: reported · read=128,656,502 write=25,814,184
+  codex: reported · read=0 write=0
+  opencode: reported · read=0 write=0
+
+coverage: sessions=10 ok=10 issues=0 stale=1 events_missing=0
+  providers:
+    claude: status=supported sessions=10 ok=10 issues=0 usage_events=10
+    codex: status=supported sessions=0 ok=0 issues=0 usage_events=0
+    opencode: status=supported sessions=0 ok=0 issues=0 usage_events=0
+
+breakdowns:
+  by_provider:
+    claude                       ev=    659 in=39,039,805 out= 9,791,820 total= 203,302,311
+  by_model:
+    claude-opus-4-1              ev=    238 in=14,653,279 out= 3,593,280 total=  72,683,900
+    claude-sonnet-4-5            ev=    221 in=12,577,766 out= 3,189,197 total=  69,397,928
+    claude-haiku-4-5             ev=    200 in=11,808,760 out= 3,009,343 total=  61,220,483
+
+sessions contributing: 10
+source: rebuildup.conversations via sibling · pages=2 complete=true
+
+
+
+
+ ↑↓/jk scroll · r reload · w window · p provider · b breakdowns · esc back

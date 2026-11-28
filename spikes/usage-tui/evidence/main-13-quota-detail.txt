@@ -1,0 +1,33 @@
+# scenario=main step=13-quota-detail size=110x32 bg_rows=[]
+ codex
+┌codex───────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│{                                                                                                           │
+│  "cache": {                                                                                                │
+│    "age_seconds": 91,                                                                                      │
+│    "hit": true,                                                                                            │
+│    "ttl_seconds": 300                                                                                      │
+│  },                                                                                                        │
+│  "checked_at": "2026-11-28T06:55:49.130Z",                                                                 │
+│  "detail": null,                                                                                           │
+│  "fetched_at": "2026-11-28T06:57:20.500Z",                                                                 │
+│  "plan": "Plus",                                                                                           │
+│  "provider": "codex",                                                                                      │
+│  "reset_credits_available": 1.0,                                                                           │
+│  "stale": false,                                                                                           │
+│  "stale_reason": null,                                                                                     │
+│  "status": "ok",                                                                                           │
+│  "windows": [                                                                                              │
+│    {                                                                                                       │
+│      "id": "primary",                                                                                      │
+│      "kind": "session",                                                                                    │
+│      "label": "Session",                                                                                   │
+│      "resets_at": "2026-11-28T07:28:18.000Z",                                                              │
+│      "used_percent": 15.0,                                                                                 │
+│      "window_duration_mins": 300.0                                                                         │
+│    },                                                                                                      │
+│    {                                                                                                       │
+│      "id": "secondary",                                                                                    │
+│      "kind": "weekly",                                                                                     │
+│      "label": "Weekly",                                                                                    │
+└──────────────────────────────────────────────────────────────────────────���────────────────────────────────
+─┘↓/jk scroll · pgup/pgdn page · esc back

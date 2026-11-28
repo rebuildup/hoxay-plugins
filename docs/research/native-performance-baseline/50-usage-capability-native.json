@@ -1,0 +1,17 @@
+{
+  "label": "usage-capability-native",
+  "command": "plugins/usage/bin/usage capability",
+  "runs": 30,
+  "warmup": 3,
+  "failures": 0,
+  "wall_ms": {
+    "n": 30,
+    "min": 8,
+    "p50": 18,
+    "p95": 21,
+    "p99": 21,
+    "max": 21,
+    "mean": 16.9,
+    "stdev": 2.5
+  }
+}

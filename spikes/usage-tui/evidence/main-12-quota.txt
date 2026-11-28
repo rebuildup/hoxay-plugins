@@ -1,0 +1,33 @@
+# scenario=main step=12-quota size=110x32 bg_rows=[]
+ quota — provider: all
+  cache ttl=300s · providers=3 · f — refresh sources
+❯ claude                                                                                                    cr
+  codex                                                                                                     ok
+  opencode                                                                                                  un
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ↑↓/jk scroll · r reload · p provider · f refresh · esc back

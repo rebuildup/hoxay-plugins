@@ -1,0 +1,32 @@
+[package]
+name = "usage"
+version = "0.6.0"
+edition.workspace = true
+license.workspace = true
+description = "rebuildup.usage — token usage aggregation over the conversations index (native Rust port)"
+
+[lib]
+name = "usage"
+path = "src/lib.rs"
+
+[[bin]]
+name = "usage"
+path = "src/main.rs"
+
+[dependencies]
+hoxay-herdr-client = { path = "../../crates/herdr-client" }
+hoxay-tui = { path = "../../crates/tui" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+chrono = { version = "0.4", features = ["serde"] }
+regex = "1"
+base64 = "0.22"
+url = "2"
+ureq = { version = "2", features = ["json"] }
+ratatui = "0.30"
+crossterm = "0.29"
+unicode-width = "0.2"
+libc = "0.2"
+
+[dev-dependencies]
+tempfile = "3"

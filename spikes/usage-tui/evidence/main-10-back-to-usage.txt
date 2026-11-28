@@ -1,0 +1,33 @@
+# scenario=main step=10-back-to-usage size=110x32 bg_rows=[]
+ usage — provider: codex · window: all time
+totals:
+  events=603 · sessions_with_usage=9
+  tokens: in=35,634,946 out=9,109,079 cache_read=125,039,195 cache_write=23,626,655 total=193,409,875
+  provider-reported cost: (not reported) over 0 event(s) — not a bill
+
+cache tokens:
+  codex: reported · read=125,039,195 write=23,626,655
+  claude: reported · read=0 write=0
+  opencode: reported · read=0 write=0
+
+coverage: sessions=9 ok=9 issues=0 stale=1 events_missing=0
+  providers:
+    codex: status=supported sessions=9 ok=9 issues=0 usage_events=9
+    claude: status=supported sessions=0 ok=0 issues=0 usage_events=0
+    opencode: status=supported sessions=0 ok=0 issues=0 usage_events=0
+
+breakdowns:
+  by_provider:
+    codex                        ev=    603 in=35,634,946 out= 9,109,079 total= 193,409,875
+  by_model:
+    gpt-5.2-codex                ev=    326 in=20,057,413 out= 5,105,750 total= 106,549,143
+    gpt-5.1-codex-mini           ev=    277 in=15,577,533 out= 4,003,329 total=  86,860,732
+
+sessions contributing: 9
+source: rebuildup.conversations via sibling · pages=2 complete=true
+
+
+
+
+
+ ↑↓/jk scroll · r reload · w window · p provider · b breakdowns · esc back

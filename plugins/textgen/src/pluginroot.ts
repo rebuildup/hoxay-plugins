@@ -39,7 +39,10 @@ async function isPluginRoot(dir: string, pluginId: string): Promise<boolean> {
     const tomlPath = path.join(dir, "herdr-plugin.toml");
     const toml = await stat(tomlPath);
     if (!toml.isFile()) return false;
-    const cli = await stat(path.join(dir, "src", "cli.ts"));
+    // Native distribution (ADR-0035): prefer bin/<name>; src/cli.ts is
+    // the legacy Bun entrypoint fallback.
+    const bin = await stat(path.join(dir, "bin", pluginDirName(pluginId))).catch(() => null);
+    const cli = bin?.isFile() === true ? bin : await stat(path.join(dir, "src", "cli.ts"));
     if (!cli.isFile()) return false;
     const text = await readFile(tomlPath, "utf8");
     return text.includes(`id = "${pluginId}"`);
@@ -140,13 +143,18 @@ export interface PluginCliCallOptions {
  * resolution) and pinned to the *target* plugin's dirs — the same
  * cross-plugin pattern as usage→conversations (ADR-0013).
  */
-export function runPluginCli(
+export async function runPluginCli(
   root: string,
   pluginId: string,
   args: string[],
   call: PluginCliCallOptions,
 ): Promise<PluginCliRunResult> {
-  const cliArgs = [path.join(root, "src", "cli.ts"), ...args];
+  // Native distribution (ADR-0035): bin/<dir> spawns directly; the
+  // legacy src/cli.ts entrypoint runs under Bun.
+  const bin = path.join(root, "bin", pluginDirName(pluginId));
+  const binInfo = await stat(bin).catch(() => null);
+  const useNative = binInfo?.isFile() === true;
+  const cliArgs = useNative ? args : [path.join(root, "src", "cli.ts"), ...args];
   if (call.session !== undefined) cliArgs.push("--session", call.session);
   if (call.socketPath !== undefined) cliArgs.push("--socket", call.socketPath);
   if (call.timeoutMs !== undefined) cliArgs.push("--timeout", String(call.timeoutMs));
@@ -172,7 +180,7 @@ export function runPluginCli(
   env.HERDR_PLUGIN_ID = pluginId;
 
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, cliArgs, {
+    const child = spawn(useNative ? bin : process.execPath, cliArgs, {
       cwd: root,
       env,
       stdio: ["ignore", "pipe", "pipe"],

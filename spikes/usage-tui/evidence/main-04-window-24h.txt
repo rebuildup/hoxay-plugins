@@ -1,0 +1,33 @@
+# scenario=main step=04-window-24h size=110x32 bg_rows=[]
+ usage — provider: all · window: last 24h
+totals:
+  events=0 · sessions_with_usage=0
+  tokens: in=0 out=0 cache_read=0 cache_write=0 total=0
+  provider-reported cost: (not reported) over 0 event(s) — not a bill
+
+cache tokens:
+  claude: reported · read=0 write=0
+  codex: reported · read=0 write=0
+  opencode: reported · read=0 write=0
+
+coverage: sessions=25 ok=25 issues=0 stale=2 events_missing=0
+  providers:
+    claude: status=supported sessions=10 ok=10 issues=0 usage_events=0
+    codex: status=supported sessions=9 ok=9 issues=0 usage_events=0
+    opencode: status=supported sessions=6 ok=6 issues=0 usage_events=0
+source: rebuildup.conversations via sibling · pages=4 complete=true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ↑↓/jk scroll · r reload · w window · p provider · b breakdowns · esc back

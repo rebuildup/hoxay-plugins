@@ -1409,7 +1409,8 @@
           "gui": "consumer:herdr-t3 (#7)",
           "real_machine_evidence": [
             "docs/research/usage-v1-real-data-verification.md",
-            "docs/research/tui-rc-0-11-0-verification.md"
+            "docs/research/tui-rc-0-11-0-verification.md",
+            "docs/research/usage-native-rust.md"
           ],
           "upstream_gap": null,
           "notes": "totals by provider/model/host/project/session/pane + period filters"
@@ -1424,7 +1425,8 @@
           "gui": "consumer:herdr-t3 (#7)",
           "real_machine_evidence": [
             "docs/research/usage-v1-real-data-verification.md",
-            "docs/research/tui-rc-0-11-0-verification.md"
+            "docs/research/tui-rc-0-11-0-verification.md",
+            "docs/research/usage-native-rust.md"
           ],
           "upstream_gap": null,
           "notes": "subscription quota/reset report"
@@ -1439,7 +1441,8 @@
           "gui": "consumer:herdr-t3 (#7)",
           "real_machine_evidence": [
             "docs/research/usage-v1-real-data-verification.md",
-            "docs/research/tui-rc-0-11-0-verification.md"
+            "docs/research/tui-rc-0-11-0-verification.md",
+            "docs/research/usage-native-rust.md"
           ],
           "upstream_gap": null,
           "notes": "quota-vs-measured divergence"
@@ -1454,7 +1457,8 @@
           "gui": "consumer:herdr-t3 (#7)",
           "real_machine_evidence": [
             "docs/research/usage-v1-real-data-verification.md",
-            "docs/research/tui-rc-0-11-0-verification.md"
+            "docs/research/tui-rc-0-11-0-verification.md",
+            "docs/research/usage-native-rust.md"
           ],
           "upstream_gap": null,
           "notes": "estimated API cost, labeled"

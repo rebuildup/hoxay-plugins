@@ -1,0 +1,17 @@
+{
+  "label": "usage-small-native",
+  "command": "plugins/usage/bin/usage usage --offline",
+  "runs": 30,
+  "warmup": 3,
+  "failures": 0,
+  "wall_ms": {
+    "n": 30,
+    "min": 319,
+    "p50": 420,
+    "p95": 448,
+    "p99": 449,
+    "max": 449,
+    "mean": 421,
+    "stdev": 24.1
+  }
+}
