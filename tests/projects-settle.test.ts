@@ -4,7 +4,9 @@ import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from "nod
 import net from "node:net";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { resolveInboxSource } from "../plugins/projects/src/inbox-source";
 import { loadRuns, updateRuns } from "../plugins/projects/src/runs";
+import { inboxBinary, inboxPluginRootFixture } from "./helpers/inbox-bin";
 import { herdrSocketEndpoint, normalizePath, testEnv } from "./helpers/test-env";
 
 /**
@@ -33,7 +35,12 @@ for (const key of [
 }
 
 function tempDir(): string {
-  const dir = mkdtempSync(path.join(tmpdir(), "projects-settle-test-"));
+  // Anchor under /tmp on POSIX: the native inbox binary (#291) uses a
+  // real sockaddr_un (104-char sun_path limit) while Bun tolerates
+  // deeper $TMPDIR paths — fake socket paths must stay connectable.
+  const dir = mkdtempSync(
+    path.join(process.platform === "win32" ? tmpdir() : "/tmp", "projects-settle-test-"),
+  );
   dirs.push(dir);
   return dir;
 }
@@ -47,9 +54,9 @@ afterAll(() => {
 });
 
 const PLUGIN = path.join(__dirname, "..", "plugins", "projects");
-const INBOX_PLUGIN = path.join(__dirname, "..", "plugins", "inbox");
 const CLI = path.join(PLUGIN, "src", "cli.ts");
-const INBOX_CLI = path.join(INBOX_PLUGIN, "src", "cli.ts");
+// rebuildup.inbox is native since #291: spawn bin/inbox directly.
+const INBOX_CLI = inboxBinary();
 
 function git(cwd: string, args: string[]): string {
   const result = spawnSync("git", args, { cwd, encoding: "utf8", env: testEnv() });
@@ -343,6 +350,15 @@ async function fakeHerdr(opts: {
   const inboxStateDir = path.join(xdgState, "herdr", "plugins", "rebuildup.inbox");
   const inboxConfigDir = path.join(xdgConfig, "herdr", "plugins", "config", "rebuildup.inbox");
 
+  // Point the settle drain at the platform-runnable inbox fixture: the
+  // committed plugins/inbox/bin/inbox prebuilt is macOS arm64 only, so
+  // on Linux CI the repo sibling root resolves but cannot exec (#291).
+  mkdirSync(projConfigDir, { recursive: true });
+  writeFileSync(
+    path.join(projConfigDir, "config.json"),
+    `${JSON.stringify({ inboxRoot: inboxPluginRootFixture() }, null, 2)}\n`,
+  );
+
   return {
     socketPath,
     projStateDir,
@@ -403,7 +419,12 @@ function projectsEnvNoTarget(fx: Fixture): Record<string, string> {
 
 function runProc(file: string, args: string[], env: Record<string, string>): Promise<ProcResult> {
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, [file, ...args], { env });
+    // TypeScript entrypoints run under `bun run`; the native inbox
+    // binary (#291) is spawned directly.
+    const isTs = file.endsWith(".ts");
+    const child = isTs
+      ? spawn(process.execPath, [file, ...args], { env })
+      : spawn(file, args, { env });
     let stdout = "";
     let stderr = "";
     child.stdout.on("data", (chunk: Buffer) => {
@@ -824,4 +845,22 @@ describe("settle triggers: runOnSettle / stopOnSettle (#182)", () => {
       await fx.close();
     }
   }, 30_000);
+});
+
+describe("inbox source resolution — pre-#291 TS-only checkout", () => {
+  test("resolveInboxSource accepts src/cli.ts when bin/inbox is absent", async () => {
+    const root = tempDir();
+    mkdirSync(path.join(root, "src"), { recursive: true });
+    writeFileSync(path.join(root, "herdr-plugin.toml"), 'id = "rebuildup.inbox"\n');
+    writeFileSync(path.join(root, "src", "cli.ts"), "// pre-#291 TS entrypoint stub\n");
+    const resolved = await resolveInboxSource(root);
+    expect(resolved.ok).toBe(true);
+    if (resolved.ok) {
+      expect(resolved.source.cli_path).toBe(path.join(root, "src", "cli.ts"));
+    }
+    // A root with neither entrypoint still fails closed.
+    const empty = tempDir();
+    const rejected = await resolveInboxSource(empty);
+    expect(rejected.ok).toBe(false);
+  });
 });

@@ -1,0 +1,23 @@
+{
+  "number": 5,
+  "title": "Forge TUI shows stale pane id",
+  "state": "OPEN",
+  "body": "Issue body for the evidence run.",
+  "stateReason": "",
+  "author": { "login": "octo" },
+  "assignees": [],
+  "labels": [{ "name": "bug" }],
+  "milestone": null,
+  "updatedAt": "2025-01-02T00:00:00Z",
+  "createdAt": "2025-01-01T00:00:00Z",
+  "closedAt": null,
+  "url": "https://github.com/octo/repo/issues/5",
+  "comments": [
+    {
+      "author": { "login": "c1" },
+      "body": "reproduced on np292",
+      "createdAt": "2025-01-02T03:00:00Z"
+    }
+  ],
+  "reactions": []
+}

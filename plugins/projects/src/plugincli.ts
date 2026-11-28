@@ -18,6 +18,7 @@
  */
 
 import { spawn } from "node:child_process";
+import { existsSync } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import {
@@ -50,8 +51,11 @@ async function isPluginRoot(dir: string, pluginId: string): Promise<boolean> {
     const tomlPath = path.join(dir, "herdr-plugin.toml");
     const toml = await stat(tomlPath);
     if (!toml.isFile()) return false;
-    const cli = await stat(path.join(dir, "src", "cli.ts"));
-    if (!cli.isFile()) return false;
+    // Native layout (ADR-0035, #292): committed bin/git. Legacy TS layout:
+    // src/cli.ts run under bun. Either marks a usable plugin root.
+    const nativeBin = await stat(path.join(dir, "bin", "git")).catch(() => null);
+    const tsCli = await stat(path.join(dir, "src", "cli.ts")).catch(() => null);
+    if (nativeBin?.isFile() !== true && tsCli?.isFile() !== true) return false;
     const text = await readFile(tomlPath, "utf8");
     return text.includes(`id = "${pluginId}"`);
   } catch {
@@ -152,7 +156,13 @@ export function runGitPluginCli(
   args: string[],
   call: { socketPath: string; timeoutMs: number },
 ): Promise<GitPluginCliResult> {
-  const cliArgs = [path.join(root, "src", "cli.ts"), ...args, "--socket", call.socketPath];
+  // Native plugin (#292) ships bin/git and is spawned directly; the legacy
+  // TS layout keeps running under bun for older installs.
+  const nativeBin = path.join(root, "bin", "git");
+  const useNative = existsSync(nativeBin);
+  const cliArgs = useNative
+    ? [...args, "--socket", call.socketPath]
+    : [path.join(root, "src", "cli.ts"), ...args, "--socket", call.socketPath];
 
   // Strip every ambient HERDR_* value (socket/session/plugin context
   // belongs to the CALLER, never the child), then pin the git plugin's
@@ -170,7 +180,7 @@ export function runGitPluginCli(
   env.HERDR_SOCKET_PATH = call.socketPath;
 
   return new Promise((resolvePromise, reject) => {
-    const child = spawn(process.execPath, cliArgs, {
+    const child = spawn(useNative ? nativeBin : process.execPath, cliArgs, {
       cwd: root,
       env,
       stdio: ["ignore", "pipe", "pipe"],

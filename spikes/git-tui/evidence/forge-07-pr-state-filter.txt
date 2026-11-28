@@ -1,0 +1,33 @@
+# scenario=forge step=07-pr-state-filter size=110x32 bg_rows=[]
+Git Forge v0.7.0 — pane w2:p1
+loading pull requests (closed)…
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ pr state filter → closed … pr list

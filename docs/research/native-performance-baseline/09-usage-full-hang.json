@@ -1,0 +1,17 @@
+{
+  "label": "usage-full-hang",
+  "command": "bun run plugins/usage/src/cli.ts usage --offline",
+  "runs": 1,
+  "warmup": 0,
+  "failures": 1,
+  "wall_ms": {
+    "n": 1,
+    "min": 30035,
+    "p50": 30035,
+    "p95": 30035,
+    "p99": 30035,
+    "max": 30035,
+    "mean": 30034.7,
+    "stdev": 0
+  }
+}

@@ -1,0 +1,33 @@
+# scenario=main step=13-files-again size=110x32 bg_rows=[]
+repo: /private/var/folders/1l/fmlzfnk57zndv1pxwwkw6xrc0000gn/T/git-tui-fixture-kbo2df1p
+❯  M modified  README.md                                     modified · unstaged
+   M modified  app.ts
+  ?? untracked  untracked.txt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ main (no upstream) · unstaged 2 · untracked 1 · ? help · q quit

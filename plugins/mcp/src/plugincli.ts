@@ -71,7 +71,10 @@ function defaultConfigDir(pluginId: string): string {
 
 async function isPluginRoot(dir: string, pluginId: string): Promise<boolean> {
   try {
-    const cli = await stat(path.join(dir, "src", "cli.ts"));
+    // Native distribution (ADR-0035): prefer bin/<name>; src/cli.ts is
+    // the legacy Bun entrypoint fallback.
+    const bin = await stat(path.join(dir, "bin", pluginDirName(pluginId))).catch(() => null);
+    const cli = bin?.isFile() === true ? bin : await stat(path.join(dir, "src", "cli.ts"));
     if (!cli.isFile()) return false;
     const tomlPath = path.join(dir, "herdr-plugin.toml");
     const toml = await stat(tomlPath).catch(() => null);
@@ -118,6 +121,13 @@ async function discoverViaHerdr(pluginId: string): Promise<string | null> {
     return null;
   }
   return null;
+}
+
+/** Prefer the native `bin/<name>`; fall back to `src/cli.ts`. */
+async function pluginCliPath(root: string, pluginId: string): Promise<string> {
+  const bin = path.join(root, "bin", pluginDirName(pluginId));
+  const info = await stat(bin).catch(() => null);
+  return info?.isFile() === true ? bin : path.join(root, "src", "cli.ts");
 }
 
 export interface PluginSource {
@@ -179,7 +189,7 @@ export async function resolvePluginSource(pluginId: string): Promise<ResolvePlug
     ok: true,
     source: {
       plugin_root: root,
-      cli_path: path.join(root, "src", "cli.ts"),
+      cli_path: await pluginCliPath(root, pluginId),
       state_dir: defaultStateDir(pluginId),
       config_dir: defaultConfigDir(pluginId),
       resolved_via: resolvedVia,
@@ -242,12 +252,18 @@ export async function runPluginCli(
   const timeoutMs = options.timeoutMs ?? 60_000;
 
   const result = await new Promise<PluginCliResult>((resolvePromise, reject) => {
-    const child = spawn(process.execPath, [source.cli_path, ...cliArgs], {
-      cwd: source.plugin_root,
-      env,
-      stdio: ["ignore", "pipe", "pipe"],
-      timeout: timeoutMs + 10_000,
-    });
+    // `.ts` entrypoints run under Bun; a native `bin/` path spawns directly.
+    const isTs = source.cli_path.endsWith(".ts");
+    const child = spawn(
+      isTs ? process.execPath : source.cli_path,
+      isTs ? [source.cli_path, ...cliArgs] : cliArgs,
+      {
+        cwd: source.plugin_root,
+        env,
+        stdio: ["ignore", "pipe", "pipe"],
+        timeout: timeoutMs + 10_000,
+      },
+    );
     let stdout = "";
     let stderr = "";
     child.stdout.on("data", (chunk: Buffer) => {

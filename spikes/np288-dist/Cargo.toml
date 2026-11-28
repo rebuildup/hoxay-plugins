@@ -1,0 +1,12 @@
+[package]
+name = "np288-dist"
+version = "0.1.1"
+edition = "2021"
+description = "SPIKE (Issue #288 / Program #286): minimal Rust-native herdr plugin binary used to verify the official install/update/disable path. Not a product plugin; do not extend."
+publish = false
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true

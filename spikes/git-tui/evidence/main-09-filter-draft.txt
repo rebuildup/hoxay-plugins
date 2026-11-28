@@ -1,0 +1,33 @@
+# scenario=main step=09-filter-draft size=110x32 bg_rows=[]
+⎇ main (no upstream)   unstaged 2 · untracked 1   repo: /private/var/folders/1l/fmlzfnk57zndv1pxwwkw6xrc0000gn
+ /commit                                                     log + per-commit show
+❯ Commit history
+  Commit… (nothing staged)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ filter: /commit█ — enter apply · esc cancel

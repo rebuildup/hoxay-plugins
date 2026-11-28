@@ -1,0 +1,60 @@
+{
+  "label": "conv-tui",
+  "command": "bun run plugins/conversations/src/tui.ts main",
+  "runs": 10,
+  "warmup": 2,
+  "pty": "120x40",
+  "first_byte_ms": {
+    "n": 10,
+    "min": 35.4,
+    "p50": 55.4,
+    "p95": 141.6,
+    "p99": 141.6,
+    "max": 141.6,
+    "mean": 64.4,
+    "stdev": 30.2
+  },
+  "advance_ms": {
+    "n": 10,
+    "min": 1500.3,
+    "p50": 1532.7,
+    "p95": 1660.5,
+    "p99": 1660.5,
+    "max": 1660.5,
+    "mean": 1556.8,
+    "stdev": 48.7
+  },
+  "data_usable_ms": {
+    "n": 10,
+    "min": 1507.7,
+    "p50": 1539.1,
+    "p95": 1682.7,
+    "p99": 1682.7,
+    "max": 1682.7,
+    "mean": 1569.9,
+    "stdev": 52.8
+  },
+  "marker_found": 10,
+  "exit_codes": [0],
+  "maxrss_kb": {
+    "n": 1,
+    "min": 30432,
+    "p50": 30432,
+    "p95": 30432,
+    "p99": 30432,
+    "max": 30432,
+    "mean": 30432.0,
+    "stdev": 0.0
+  },
+  "pgid_peak_rss_kb": {
+    "n": 10,
+    "min": 29808,
+    "p50": 49296,
+    "p95": 53136,
+    "p99": 53136,
+    "max": 53136,
+    "mean": 44969.6,
+    "stdev": 8374.4
+  },
+  "note": "first_byte = first PTY output; data_usable = first output matching --marker regex (post-load content); maxrss = top-level child only; pgid_peak_rss = summed RSS of process group sampled ~30ms (includes TUI-spawned CLI children, double-counts shared pages)"
+}

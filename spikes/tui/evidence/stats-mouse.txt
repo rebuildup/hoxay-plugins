@@ -1,0 +1,1 @@
+frames=59 first_frame_us=Some(14997) draw_total_us=54540 draw_avg_us=924 draw_p50=558us draw_p95=1458us draw_max_us=14524 key_to_draw p50=607us p95=1880us p99=1880us max=1880us samples=6

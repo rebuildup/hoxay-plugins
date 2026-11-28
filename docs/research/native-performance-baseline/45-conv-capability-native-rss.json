@@ -1,0 +1,28 @@
+{
+  "label": "conv-capability-rss-native",
+  "command": "./plugins/conversations/bin/conversations capability",
+  "runs": 12,
+  "warmup": 2,
+  "failures": 0,
+  "wall_ms": {
+    "n": 12,
+    "min": 16,
+    "p50": 26,
+    "p95": 31,
+    "p99": 31,
+    "max": 31,
+    "mean": 24.6,
+    "stdev": 4.6
+  },
+  "rss_kb": {
+    "n": 12,
+    "min": 5728,
+    "p50": 5728,
+    "p95": 5728,
+    "p99": 5728,
+    "max": 5728,
+    "mean": 5728,
+    "stdev": 0
+  },
+  "rss_note": "max RSS of the top-level process only (children not attributed); /usr/bin/time -l overhead included"
+}

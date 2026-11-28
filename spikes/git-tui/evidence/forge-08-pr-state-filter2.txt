@@ -1,0 +1,33 @@
+# scenario=forge step=08-pr-state-filter2 size=110x32 bg_rows=[]
+Git Forge v0.7.0 — pane w2:p1
+loading pull requests (merged)…
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ pr state filter → merged … pr list

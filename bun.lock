@@ -40,11 +40,7 @@
     },
     "plugins/conversations": {
       "name": "@hoxay-plugins/conversations",
-      "version": "0.6.0",
-    },
-    "plugins/git": {
-      "name": "@hoxay-plugins/git",
-      "version": "0.6.0",
+      "version": "0.7.0",
     },
     "plugins/handoff": {
       "name": "@hoxay-plugins/handoff",
@@ -52,7 +48,7 @@
     },
     "plugins/inbox": {
       "name": "@hoxay-plugins/inbox",
-      "version": "0.7.0",
+      "version": "0.8.0",
     },
     "plugins/machines": {
       "name": "@hoxay-plugins/machines",
@@ -109,8 +105,6 @@
     "@hoxay-plugins/controls": ["@hoxay-plugins/controls@workspace:plugins/controls"],
 
     "@hoxay-plugins/conversations": ["@hoxay-plugins/conversations@workspace:plugins/conversations"],
-
-    "@hoxay-plugins/git": ["@hoxay-plugins/git@workspace:plugins/git"],
 
     "@hoxay-plugins/git-core": ["@hoxay-plugins/git-core@workspace:packages/git-core"],
 

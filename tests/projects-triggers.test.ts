@@ -1,6 +1,6 @@
 import { afterAll, describe, expect, test } from "bun:test";
 import { spawn, spawnSync } from "node:child_process";
-import { mkdtempSync, realpathSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, realpathSync, rmSync, writeFileSync } from "node:fs";
 import net from "node:net";
 import { tmpdir } from "node:os";
 import path from "node:path";
@@ -11,6 +11,7 @@ import {
   canonicalTriggerEventName,
   extractWorktreePath,
 } from "../plugins/projects/src/triggers";
+import { inboxPluginRootFixture } from "./helpers/inbox-bin";
 import { herdrSocketEndpoint, normalizePath, testEnv } from "./helpers/test-env";
 
 const dirs: string[] = [];
@@ -35,6 +36,16 @@ function useStateDir(): string {
   const dir = tempDir();
   process.env.HERDR_PLUGIN_STATE_DIR = dir;
   process.env.HERDR_PLUGIN_CONFIG_DIR = path.join(dir, "config");
+  // Settle drain resolves inbox via config `inboxRoot`: point it at the
+  // platform-runnable fixture — the committed bin/inbox prebuilt is
+  // macOS arm64 only and cannot exec on Linux CI (#291). With a dead
+  // test socket the drain still reports inbox_unavailable honestly.
+  const configDir = process.env.HERDR_PLUGIN_CONFIG_DIR;
+  mkdirSync(configDir, { recursive: true });
+  writeFileSync(
+    path.join(configDir, "config.json"),
+    `${JSON.stringify({ inboxRoot: inboxPluginRootFixture() }, null, 2)}\n`,
+  );
   return dir;
 }
 

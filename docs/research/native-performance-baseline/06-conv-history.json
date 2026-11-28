@@ -1,0 +1,17 @@
+{
+  "label": "conv-history",
+  "command": "bun run plugins/conversations/src/cli.ts history --session-id claude:sess-10148 --limit 200 --offline",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 47,
+    "p50": 143,
+    "p95": 434,
+    "p99": 553,
+    "max": 553,
+    "mean": 174.1,
+    "stdev": 135.7
+  }
+}

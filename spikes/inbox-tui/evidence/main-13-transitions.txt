@@ -1,0 +1,31 @@
+# scenario=main step=13-transitions size=100x30 bg_rows=[]
+ Inbox — /var/tmp/np291-herdr/config/herdr/sessions/np291/herdr.sock · scope:inbox 1/4
+
+┌Organize-transition log (read-only)───────────────────────────────────────────────────────────────┐
+│head_seq=8 oldest=1 dropped=0                                                                     │
+│                                                                                                  │
+│#1 settled w1:p1 @ 2026-11-27T18:39:26.633Z ws=w1                                                 │
+│#2 snoozed w1:p1 @ 2026-11-27T18:40:30.623Z ws=w1                                                 │
+│#3 restored w1:p1 @ 2026-11-27T18:40:31.282Z ws=w1                                                │
+│#4 settled w1:p1 @ 2026-11-27T20:00:08.561Z ws=w1                                                 │
+│#5 snoozed w1:p2 @ 2026-11-27T20:00:08.601Z ws=w1                                                 │
+│#6 settled w1:p3 @ 2026-11-27T20:00:08.654Z ws=w1                                                 │
+│#7 restored w1:p3 @ 2026-11-27T20:04:09.827Z ws=w1                                                │
+│#8 settled w1:p3 @ 2026-11-27T20:07:29.002Z ws=w1                                                 │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+  · ? help · q quit

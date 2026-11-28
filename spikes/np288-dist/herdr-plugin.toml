@@ -1,0 +1,48 @@
+# SPIKE manifest for GitHub Issue #288 (Program #286).
+#
+# NOT a product plugin. This manifest packages a single committed,
+# prebuilt Rust binary (`bin/np288-dist`, macOS arm64 only) through the
+# official herdr plugin manifest to produce real install/update/disable
+# evidence. See docs/research/np288-native-distribution-spike.md.
+#
+# `platforms` is honestly restricted to macOS: that is the only platform
+# this spike built and verified. Linux/Windows binaries and the
+# per-arch selection mechanism are recorded as unverified in the ADR.
+
+id = "rebuildup.np288-dist"
+name = "NP288 Distribution Spike"
+version = "0.1.1"
+min_herdr_version = "0.9.0"
+description = "SPIKE ONLY (issue #288): verifies native Rust binary distribution through the official herdr plugin install path. No product behavior."
+platforms = ["macos"]
+
+# No [[build]] commands: the binary is committed prebuilt, so install
+# requires no Bun/Node/cargo toolchain. This is the candidate
+# "individual prebuilt binary" distribution shape under evaluation.
+
+[[actions]]
+id = "ping"
+title = "NP288 spike: ping"
+description = "Print spike version and injected plugin environment."
+contexts = ["global", "workspace", "pane"]
+command = ["./bin/np288-dist", "ping"]
+
+[[startup]]
+command = ["./bin/np288-dist", "startup"]
+
+# Pane entrypoint: opens a transient overlay pane running the spike
+# binary. The process prints its env and exits immediately — enough to
+# prove entrypoint launch without a real TUI.
+[[panes]]
+id = "main"
+title = "NP288 spike pane"
+description = "SPIKE: prints version/env and exits."
+placement = "overlay"
+command = ["./bin/np288-dist", "ping"]
+
+# Event hook evidence: fires when any pane exits in a session running
+# this plugin. The hook only appends to plugin state; it must never
+# affect herdr (ADR-0002 precedent).
+[[events]]
+on = "pane.exited"
+command = ["./bin/np288-dist", "hook"]

@@ -1,0 +1,31 @@
+# scenario=main step=07-help size=100x30 bg_rows=[]
+ Inbox — /var/tmp/np291-herdr/config/herdr/sessions/np291/herdr.sock · scope:inbox 2/4
+
+┌help──────────────────────────────────────────────────────────────────────────────────────────────┐
+│Inbox TUI keymap                                                                                  │
+│                                                                                                  │
+│  ↑/k/↓/j            move selection                                                               │
+│  pgup/pgdn          page                                                                         │
+│  home/end           first / last                                                                 │
+│  /                  filter (text search)                                                         │
+│  f                  cycle scope: inbox → all → hidden → attention                                │
+│  R                  refresh list (read-only)                                                     │
+│  enter              item detail                                                                  │
+│  s                  settle pane (confirm)                                                        │
+│  n                  snooze pane (confirm)                                                        │
+│  r                  restore pane (confirm)                                                       │
+│  p                  pin / unpin (confirm)                                                        │
+│  a                  archive / unarchive (confirm)                                                │
+│  [/]                move up / down in order group (confirm)                                      │
+│  l                  link PR/Issue (confirm)                                                      │
+│  u                  unlink PR/Issue (confirm)                                                    │
+│  t                  organize-transition log (read-only)                                          │
+│  c                  run reconcile now (explicit, confirm)                                        │
+│                                                                                                  │
+│Mutations go through the inbox CLI contract — the TUI never writes organize state directly.       │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+ 2 inbox · 0 attention · ? help · q quit

@@ -12,6 +12,7 @@
  */
 
 import { spawn } from "node:child_process";
+import { existsSync } from "node:fs";
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { pluginDirs } from "../../../packages/herdr-client/src/index";
@@ -39,8 +40,11 @@ async function isPluginRoot(dir: string, pluginId: string): Promise<boolean> {
     const tomlPath = path.join(dir, "herdr-plugin.toml");
     const toml = await stat(tomlPath);
     if (!toml.isFile()) return false;
-    const cli = await stat(path.join(dir, "src", "cli.ts"));
-    if (!cli.isFile()) return false;
+    // Native layout (ADR-0035): committed bin/<plugin>; legacy TS layout:
+    // src/cli.ts run under bun. Either marks a usable plugin root.
+    const nativeBin = await stat(path.join(dir, "bin", pluginDirName(pluginId))).catch(() => null);
+    const tsCli = await stat(path.join(dir, "src", "cli.ts")).catch(() => null);
+    if (nativeBin?.isFile() !== true && tsCli?.isFile() !== true) return false;
     const text = await readFile(tomlPath, "utf8");
     return text.includes(`id = "${pluginId}"`);
   } catch {
@@ -146,7 +150,11 @@ export function runPluginCli(
   args: string[],
   call: PluginCliCallOptions,
 ): Promise<PluginCliRunResult> {
-  const cliArgs = [path.join(root, "src", "cli.ts"), ...args];
+  // Native plugins (#291/#292) ship bin/<name> and are spawned directly;
+  // legacy TS plugins keep running src/cli.ts under bun.
+  const nativeBin = path.join(root, "bin", pluginDirName(pluginId));
+  const useNative = existsSync(nativeBin);
+  const cliArgs = useNative ? [...args] : [path.join(root, "src", "cli.ts"), ...args];
   if (call.session !== undefined) cliArgs.push("--session", call.session);
   if (call.socketPath !== undefined) cliArgs.push("--socket", call.socketPath);
   if (call.timeoutMs !== undefined) cliArgs.push("--timeout", String(call.timeoutMs));
@@ -172,7 +180,7 @@ export function runPluginCli(
   env.HERDR_PLUGIN_ID = pluginId;
 
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, cliArgs, {
+    const child = spawn(useNative ? nativeBin : process.execPath, cliArgs, {
       cwd: root,
       env,
       stdio: ["ignore", "pipe", "pipe"],

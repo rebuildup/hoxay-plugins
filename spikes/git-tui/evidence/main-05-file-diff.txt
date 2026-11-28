@@ -1,0 +1,33 @@
+# scenario=main step=05-file-diff size=110x32 bg_rows=[]
+repo: /private/var/folders/1l/fmlzfnk57zndv1pxwwkw6xrc0000gn/T/git-tui-fixture-kbo2df1p
+diff (worktree) — app.ts
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+scope: worktree · path: app.ts
+
+diff --git a/app.ts b/app.ts
+index 72ab60e..26b8d7a 100644
+--- a/app.ts
++++ b/app.ts
+@@ -1,2 +1,3 @@
+ export const a = 1;
+ export const b = 2;
++export const c = 3;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                         1/10
+ main (no upstream) · unstaged 2 · untracked 1 · esc back · q quit

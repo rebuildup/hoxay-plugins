@@ -1,0 +1,31 @@
+# scenario=main step=05-filtered size=100x30 bg_rows=[]
+ Inbox — /var/tmp/np291-herdr/config/herdr/sessions/np291/herdr.sock · scope:inbox · /np291-b 1/4
+
+❯ w1:p3                                                                                           w1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 2 inbox · 0 attention · ? help · q quit

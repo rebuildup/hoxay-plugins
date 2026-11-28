@@ -1,0 +1,10 @@
+{
+  "number": 7,
+  "title": "Add forge TUI parity fixes",
+  "state": "open",
+  "draft": false,
+  "mergeable": true,
+  "mergeable_state": "clean",
+  "head": { "ref": "feat/forge-parity", "sha": "0123456789abcdef0123456789abcdef01234567" },
+  "base": { "ref": "main" }
+}

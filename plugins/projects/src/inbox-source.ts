@@ -45,17 +45,29 @@ function defaultInboxConfigDir(): string {
 
 async function isInboxRoot(dir: string): Promise<boolean> {
   try {
-    const cli = await stat(path.join(dir, "src", "cli.ts"));
-    if (!cli.isFile()) return false;
+    // Native distribution (ADR-0035): the plugin ships bin/inbox; the
+    // legacy Bun entrypoint src/cli.ts remains a fallback for pre-#291
+    // TS-only checkouts (independent plugin lifecycle).
+    const bin = await stat(path.join(dir, "bin", "inbox")).catch(() => null);
+    const cli =
+      bin?.isFile() === true ? bin : await stat(path.join(dir, "src", "cli.ts")).catch(() => null);
+    if (cli === null || !cli.isFile()) return false;
     const tomlPath = path.join(dir, "herdr-plugin.toml");
     const toml = await stat(tomlPath).catch(() => null);
-    if (toml === null || !toml.isFile()) return true; // cli.ts is enough signal
+    if (toml === null || !toml.isFile()) return true; // cli entrypoint is enough signal
     const { readFile } = await import("node:fs/promises");
     const text = await readFile(tomlPath, "utf8");
     return text.includes(`id = "${INBOX_PLUGIN_ID}"`);
   } catch {
     return false;
   }
+}
+
+/** Prefer the native `bin/inbox`; fall back to `src/cli.ts` (pre-#291 checkouts). */
+async function inboxCliPath(root: string): Promise<string> {
+  const bin = path.join(root, "bin", "inbox");
+  const info = await stat(bin).catch(() => null);
+  return info?.isFile() === true ? bin : path.join(root, "src", "cli.ts");
 }
 
 /** `herdr plugin list --json` → plugin_root for rebuildup.inbox. */
@@ -153,7 +165,7 @@ export async function resolveInboxSource(overrideRoot?: string): Promise<Resolve
     ok: true,
     source: {
       plugin_root: root,
-      cli_path: path.join(root, "src", "cli.ts"),
+      cli_path: await inboxCliPath(root),
       state_dir: defaultInboxStateDir(),
       config_dir: defaultInboxConfigDir(),
       resolved_via: resolvedVia,
@@ -183,22 +195,36 @@ export function runInboxCli(
   args: string[],
   call: InboxCliCallOptions,
 ): Promise<InboxCliResult> {
-  const cliArgs = [source.cli_path, ...args];
   // Child env: pin the plugin dirs to the *inbox* plugin so the ambient
   // HERDR_PLUGIN_* values (which belong to rebuildup.projects) cannot
-  // redirect its state resolution.
+  // redirect its state resolution. Scrub the full plugin-context set —
+  // same six vars plugins/git/src/inbox.ts strips (defense in depth).
   const env: Record<string, string> = {};
   for (const [key, value] of Object.entries(process.env)) {
     if (value === undefined) continue;
-    if (key === "HERDR_PLUGIN_STATE_DIR" || key === "HERDR_PLUGIN_CONFIG_DIR") continue;
+    if (
+      key === "HERDR_PLUGIN_STATE_DIR" ||
+      key === "HERDR_PLUGIN_CONFIG_DIR" ||
+      key === "HERDR_PLUGIN_ID" ||
+      key === "HERDR_PLUGIN_ROOT" ||
+      key === "HERDR_PLUGIN_CONTEXT_JSON" ||
+      key === "HERDR_PANE_ID"
+    ) {
+      continue;
+    }
     env[key] = value;
   }
   env.HERDR_PLUGIN_STATE_DIR = source.state_dir;
   env.HERDR_PLUGIN_CONFIG_DIR = source.config_dir;
   env.HERDR_PLUGIN_ID = INBOX_PLUGIN_ID;
 
+  // `.ts` entrypoints run under Bun (process.execPath); a native bin/
+  // path spawns directly — mirrors pluginroot.rs run_plugin_cli.
+  const isTs = source.cli_path.endsWith(".ts");
+  const argv = isTs ? [source.cli_path, ...args] : args;
+  const command = isTs ? process.execPath : source.cli_path;
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, cliArgs, {
+    const child = spawn(command, argv, {
       cwd: source.plugin_root,
       env,
       stdio: ["ignore", "pipe", "pipe"],

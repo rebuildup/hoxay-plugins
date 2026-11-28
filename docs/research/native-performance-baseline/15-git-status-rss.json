@@ -1,0 +1,28 @@
+{
+  "label": "git-status-rss",
+  "command": "bun run plugins/git/src/cli.ts status w2:p1",
+  "runs": 12,
+  "warmup": 2,
+  "failures": 0,
+  "wall_ms": {
+    "n": 12,
+    "min": 370,
+    "p50": 483,
+    "p95": 708,
+    "p99": 708,
+    "max": 708,
+    "mean": 503.4,
+    "stdev": 100.7
+  },
+  "rss_kb": {
+    "n": 12,
+    "min": 26848,
+    "p50": 27568,
+    "p95": 27920,
+    "p99": 27920,
+    "max": 27920,
+    "mean": 27501.3,
+    "stdev": 318
+  },
+  "rss_note": "max RSS of the top-level process only (children not attributed); /usr/bin/time -l overhead included"
+}

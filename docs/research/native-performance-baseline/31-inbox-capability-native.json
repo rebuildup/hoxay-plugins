@@ -1,0 +1,17 @@
+{
+  "label": "inbox-capability-native",
+  "command": "plugins/inbox/bin/inbox capability",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 8,
+    "p50": 15,
+    "p95": 18,
+    "p99": 20,
+    "max": 20,
+    "mean": 14.5,
+    "stdev": 2.9
+  }
+}

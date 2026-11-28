@@ -1,0 +1,28 @@
+{
+  "label": "inbox-list-rss",
+  "command": "bun run plugins/inbox/src/cli.ts list",
+  "runs": 12,
+  "warmup": 2,
+  "failures": 0,
+  "wall_ms": {
+    "n": 12,
+    "min": 260,
+    "p50": 276,
+    "p95": 333,
+    "p99": 333,
+    "max": 333,
+    "mean": 288.3,
+    "stdev": 23
+  },
+  "rss_kb": {
+    "n": 12,
+    "min": 23600,
+    "p50": 24096,
+    "p95": 24864,
+    "p99": 24864,
+    "max": 24864,
+    "mean": 24190.7,
+    "stdev": 410.3
+  },
+  "rss_note": "max RSS of the top-level process only (children not attributed); /usr/bin/time -l overhead included"
+}

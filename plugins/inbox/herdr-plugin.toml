@@ -1,12 +1,13 @@
 id = "rebuildup.inbox"
 name = "Inbox"
-version = "0.7.0"
+version = "0.8.0"
 min_herdr_version = "0.9.0"
-description = "Work inbox for agent panes: settle, snooze, pin, archive, manual ordering, search/filter, explicit PR/Issue links, restore with persistent user-side organize state, a read-only organize-transition log, an opt-in watch-pr PR-update watcher, and an interactive TUI browser (contracts herdr-plugins.inbox/v1 stable, herdr-plugins.tui/v1; additive v0.4.0–v0.7.0)."
-platforms = ["linux", "macos", "windows"]
+description = "Work inbox for agent panes: settle, snooze, pin, archive, manual ordering, search/filter, explicit PR/Issue links, restore with persistent user-side organize state, a read-only organize-transition log, an opt-in watch-pr PR-update watcher, and an interactive TUI browser (contracts herdr-plugins.inbox/v1 stable, herdr-plugins.tui/v1; additive v0.4.0–v0.8.0)."
+platforms = ["macos"]
 
-# No build step: the plugin is dependency-free TypeScript executed by Bun
-# (runtime prerequisite, see plugins/inbox/README.md).
+# No build step for normal installs: the plugin ships a committed
+# prebuilt native binary (ADR-0035). Verified platform: macOS arm64 only;
+# other platforms are declared honestly once their binaries exist.
 
 # Interactive TUI surface (contract herdr-plugins.tui/v1, ADR-0031/0032/0033,
 # Issue #237): workspace-scale inbox browser. `tab` placement per the
@@ -16,9 +17,9 @@ platforms = ["linux", "macos", "windows"]
 id = "main"
 title = "Inbox"
 description = "Interactive inbox browser: attention states, search/filter, pin/order/archive, settle/snooze/restore, PR/Issue links, transition log."
-platforms = ["linux", "macos", "windows"]
+platforms = ["macos"]
 placement = "tab"
-command = ["bun", "run", "src/tui.ts"]
+command = ["./bin/inbox", "tui"]
 
 # `open` action: background helper that invokes plugin.pane.open through
 # HERDR_BIN_PATH and returns promptly (actions cannot render UI). The
@@ -28,69 +29,69 @@ id = "open"
 title = "Inbox: open UI"
 description = "Open the interactive inbox browser in a new tab."
 contexts = ["workspace", "pane"]
-command = ["bun", "run", "src/tui.ts", "--open"]
+command = ["./bin/inbox", "tui", "--open"]
 
 [[actions]]
 id = "settle"
 title = "Inbox: settle pane"
 description = "Hide the focused agent pane from the inbox until its state changes."
 contexts = ["pane"]
-command = ["bun", "run", "src/cli.ts", "settle"]
+command = ["./bin/inbox", "settle"]
 
 [[actions]]
 id = "restore"
 title = "Inbox: restore pane"
 description = "Return the focused agent pane to the inbox and clear all organize state."
 contexts = ["pane"]
-command = ["bun", "run", "src/cli.ts", "restore"]
+command = ["./bin/inbox", "restore"]
 
 [[actions]]
 id = "snooze"
 title = "Inbox: snooze pane"
 description = "Hide the focused agent pane until the configured snooze duration elapses."
 contexts = ["pane"]
-command = ["bun", "run", "src/cli.ts", "snooze"]
+command = ["./bin/inbox", "snooze"]
 
 [[actions]]
 id = "pin"
 title = "Inbox: pin pane"
 description = "Pin the focused agent pane to the top of the inbox."
 contexts = ["pane"]
-command = ["bun", "run", "src/cli.ts", "pin"]
+command = ["./bin/inbox", "pin"]
 
 [[actions]]
 id = "unpin"
 title = "Inbox: unpin pane"
 description = "Remove the pin from the focused agent pane."
 contexts = ["pane"]
-command = ["bun", "run", "src/cli.ts", "unpin"]
+command = ["./bin/inbox", "unpin"]
 
 [[actions]]
 id = "archive"
 title = "Inbox: archive pane"
 description = "Archive the focused agent pane out of the default inbox view. Never stops or closes the agent."
 contexts = ["pane"]
-command = ["bun", "run", "src/cli.ts", "archive"]
+command = ["./bin/inbox", "archive"]
 
 [[actions]]
 id = "unarchive"
 title = "Inbox: unarchive pane"
 description = "Return the focused agent pane from the archive to the inbox."
 contexts = ["pane"]
-command = ["bun", "run", "src/cli.ts", "unarchive"]
+command = ["./bin/inbox", "unarchive"]
 
 # Startup hook: one reconcile pass at server start materializes expired
 # snoozes and repairs metadata tokens after restarts. No resident process.
 [[startup]]
-command = ["bun", "run", "src/cli.ts", "reconcile"]
+command = ["./bin/inbox", "reconcile"]
 
 # Event hooks: keep organize state consistent with herdr lifecycle events
 # (auto-restore on state_change_seq advance, agent-session mismatch, expiry;
 # drop state when a pane closes).
 [[events]]
 on = "pane.agent_status_changed"
-command = ["bun", "run", "src/hook.ts"]
+command = ["./bin/inbox", "hook"]
 
 [[events]]
 on = "pane.closed"
-command = ["bun", "run", "src/hook.ts"]
+command = ["./bin/inbox", "hook"]

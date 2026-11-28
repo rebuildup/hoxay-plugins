@@ -1,0 +1,17 @@
+{
+  "label": "git-status",
+  "command": "bun run plugins/git/src/cli.ts status w2:p1",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 288,
+    "p50": 364,
+    "p95": 467,
+    "p99": 527,
+    "max": 527,
+    "mean": 377,
+    "stdev": 55.3
+  }
+}

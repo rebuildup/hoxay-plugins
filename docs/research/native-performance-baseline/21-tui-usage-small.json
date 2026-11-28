@@ -1,0 +1,53 @@
+{
+  "label": "usage-tui-report-small",
+  "command": "bun run plugins/usage/src/tui.ts main",
+  "runs": 12,
+  "warmup": 2,
+  "pty": "120x40",
+  "first_byte_ms": {
+    "n": 12,
+    "min": 53.5,
+    "p50": 111.1,
+    "p95": 251.1,
+    "p99": 251.1,
+    "max": 251.1,
+    "mean": 117.2,
+    "stdev": 54.0
+  },
+  "advance_ms": {
+    "n": 12,
+    "min": 99.0,
+    "p50": 163.8,
+    "p95": 349.3,
+    "p99": 349.3,
+    "max": 349.3,
+    "mean": 180.6,
+    "stdev": 69.4
+  },
+  "data_usable_ms": {
+    "n": 12,
+    "min": 343.5,
+    "p50": 585.1,
+    "p95": 1386.6,
+    "p99": 1386.6,
+    "max": 1386.6,
+    "mean": 696.1,
+    "stdev": 320.2
+  },
+  "marker_found": 12,
+  "exit_codes": [0],
+  "maxrss_kb": {
+    "n": 0
+  },
+  "pgid_peak_rss_kb": {
+    "n": 12,
+    "min": 52624,
+    "p50": 71424,
+    "p95": 79712,
+    "p99": 79712,
+    "max": 79712,
+    "mean": 70244.0,
+    "stdev": 6997.5
+  },
+  "note": "first_byte = first PTY output; data_usable = first output matching --marker regex (post-load content); maxrss = top-level child only; pgid_peak_rss = summed RSS of process group sampled ~30ms (includes TUI-spawned CLI children, double-counts shared pages)"
+}

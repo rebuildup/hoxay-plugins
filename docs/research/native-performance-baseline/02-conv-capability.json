@@ -1,0 +1,17 @@
+{
+  "label": "conv-capability",
+  "command": "bun run plugins/conversations/src/cli.ts capability",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 29,
+    "p50": 38,
+    "p95": 49,
+    "p99": 77,
+    "max": 77,
+    "mean": 39.5,
+    "stdev": 8.3
+  }
+}

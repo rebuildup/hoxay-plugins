@@ -1,0 +1,41 @@
+# scenario=resize step=03-120x40 size=120x40 bg_rows=[2]
+ ready [LIST]
+┌ Inbox spike — 8 items (filtered 8) ──────────────────────────────────────────────────────────────────────────────────┐
+│ inbox-1    レビュー依頼: Rust TUI スパイク (#289)                                                                    │
+│ inbox-2    café au lait (combining)                                                                                  │
+│ inbox-3    Ambiguous width: ・αβγ・                                                                                  │
+│ inbox-4    Emoji ZWJ: 👨 and flags 🇯🇵                                                                              │
+│ inbox-5    Long line for truncation/scroll                                                                           │
+│ inbox-6    Escape probe </span>[31mRED[0m                                                                            │
+│ inbox-7    キーボード操作の確認                                                                                      │
+│ inbox-8    マウス: click select, wheel scroll                                                                        │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+│                                                                                                                      │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+? help  / filter  r refresh  d delete  Enter detail  q quit

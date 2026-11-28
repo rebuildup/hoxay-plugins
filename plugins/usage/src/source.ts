@@ -59,17 +59,27 @@ function defaultConfigDir(): string {
 
 async function isConversationsRoot(dir: string): Promise<boolean> {
   try {
-    const cli = await stat(path.join(dir, "src", "cli.ts"));
+    // Native distribution (ADR-0035): the plugin ships bin/conversations;
+    // the legacy Bun entrypoint src/cli.ts remains a fallback.
+    const bin = await stat(path.join(dir, "bin", "conversations")).catch(() => null);
+    const cli = bin?.isFile() === true ? bin : await stat(path.join(dir, "src", "cli.ts"));
     if (!cli.isFile()) return false;
     const tomlPath = path.join(dir, "herdr-plugin.toml");
     const toml = await stat(tomlPath).catch(() => null);
-    if (toml === null || !toml.isFile()) return true; // cli.ts is enough signal
+    if (toml === null || !toml.isFile()) return true; // cli entrypoint is enough signal
     const { readFile } = await import("node:fs/promises");
     const text = await readFile(tomlPath, "utf8");
     return text.includes(`id = "${CONVERSATIONS_PLUGIN_ID}"`);
   } catch {
     return false;
   }
+}
+
+/** Prefer the native `bin/conversations`; fall back to `src/cli.ts`. */
+async function conversationsCliPath(root: string): Promise<string> {
+  const bin = path.join(root, "bin", "conversations");
+  const info = await stat(bin).catch(() => null);
+  return info?.isFile() === true ? bin : path.join(root, "src", "cli.ts");
 }
 
 /** `herdr plugin list --json` → plugin_root for rebuildup.conversations. */
@@ -168,7 +178,7 @@ export async function resolveConversationsSource(options: SourceOptions): Promis
     ok: true,
     source: {
       plugin_root: root,
-      cli_path: path.join(root, "src", "cli.ts"),
+      cli_path: await conversationsCliPath(root),
       state_dir: stateDir,
       config_dir: configDir,
       resolved_via: resolvedVia,
@@ -218,7 +228,6 @@ function runConversationsCli(
   args: string[],
   call: CliCallOptions,
 ): Promise<CliRunResult> {
-  const cliArgs = [source.cli_path, ...args];
   // Child env: pin the plugin dirs to the *conversations* plugin so the
   // ambient HERDR_PLUGIN_* values (which belong to rebuildup.usage)
   // cannot redirect its state resolution.
@@ -232,8 +241,12 @@ function runConversationsCli(
   env.HERDR_PLUGIN_CONFIG_DIR = source.config_dir;
   env.HERDR_PLUGIN_ID = CONVERSATIONS_PLUGIN_ID;
 
+  // `.ts` entrypoints run under Bun; a native `bin/` path spawns directly.
+  const isTs = source.cli_path.endsWith(".ts");
+  const argv = isTs ? [source.cli_path, ...args] : args;
+  const command = isTs ? process.execPath : source.cli_path;
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, cliArgs, {
+    const child = spawn(command, argv, {
       cwd: source.plugin_root,
       env,
       stdio: ["ignore", "pipe", "pipe"],

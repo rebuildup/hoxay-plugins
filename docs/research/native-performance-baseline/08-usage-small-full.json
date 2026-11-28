@@ -1,0 +1,17 @@
+{
+  "label": "usage-small-full",
+  "command": "bun run plugins/usage/src/cli.ts usage --offline",
+  "runs": 30,
+  "warmup": 3,
+  "failures": 0,
+  "wall_ms": {
+    "n": 30,
+    "min": 143,
+    "p50": 393,
+    "p95": 1270,
+    "p99": 1491,
+    "max": 1491,
+    "mean": 460,
+    "stdev": 314.8
+  }
+}

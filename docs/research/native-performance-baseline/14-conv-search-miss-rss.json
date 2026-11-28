@@ -1,0 +1,28 @@
+{
+  "label": "conv-search-miss-rss",
+  "command": "bun run plugins/conversations/src/cli.ts search zzzqqq-nomatch --offline",
+  "runs": 12,
+  "warmup": 2,
+  "failures": 0,
+  "wall_ms": {
+    "n": 12,
+    "min": 180,
+    "p50": 442,
+    "p95": 776,
+    "p99": 776,
+    "max": 776,
+    "mean": 444.4,
+    "stdev": 186.9
+  },
+  "rss_kb": {
+    "n": 12,
+    "min": 38464,
+    "p50": 39648,
+    "p95": 42208,
+    "p99": 42208,
+    "max": 42208,
+    "mean": 40077.3,
+    "stdev": 935.7
+  },
+  "rss_note": "max RSS of the top-level process only (children not attributed); /usr/bin/time -l overhead included"
+}

@@ -17,7 +17,7 @@ conventions as `herdr-plugins.inbox/v1` (`docs/contracts/inbox-v1.md`).
 
 1. `herdr plugin list --json` → find `plugin_id == "rebuildup.git"` →
    `plugin_root`.
-2. `cd <plugin_root> && bun run src/cli.ts capability` → verify
+2. `cd <plugin_root> && ./bin/git capability` → verify
    `contract == "herdr-plugins.git/v1"` and the commands you need exist.
 3. Run `status` / `diff` / `project` with the target pane.
 
@@ -25,29 +25,29 @@ conventions as `herdr-plugins.inbox/v1` (`docs/contracts/inbox-v1.md`).
 
 ```bash
 cd "$(herdr plugin list --json | jq -r '.result.plugins[] | select(.plugin_id=="rebuildup.git") | .plugin_root')"
-bun run src/cli.ts status <pane_id> [--session NAME] [--socket PATH] [--timeout MS]
-bun run src/cli.ts files <pane_id> [--path PATH]... [--session NAME]
-bun run src/cli.ts diff <pane_id> [--staged] [--stat|--name-status|--numstat]
+./bin/git status <pane_id> [--session NAME] [--socket PATH] [--timeout MS]
+./bin/git files <pane_id> [--path PATH]... [--session NAME]
+./bin/git diff <pane_id> [--staged] [--stat|--name-status|--numstat]
     [--path PATH]... [--max-bytes N] [rev [rev]]
-bun run src/cli.ts log <pane_id> [--limit N] [--skip N] [--all]
+./bin/git log <pane_id> [--limit N] [--skip N] [--all]
     [--first-parent] [--author X] [--grep X] [--since X] [--until X]
     [--path PATH]...
-bun run src/cli.ts compare <pane_id> [base [head]] [--max-bytes N]
-bun run src/cli.ts stage <pane_id> [--all | --path PATH]...
-bun run src/cli.ts unstage <pane_id> [--all | --path PATH]...
-bun run src/cli.ts commit <pane_id> -m MSG [-m MSG]... [--allow-empty]
-bun run src/cli.ts branch create <pane_id> <name> [--switch]
-bun run src/cli.ts branch switch <pane_id> <name>
-bun run src/cli.ts upstream <pane_id> <upstream-ref>
-bun run src/cli.ts fetch <pane_id> [remote] [--prune]
-bun run src/cli.ts push <pane_id> [--set-upstream] [--force-with-lease]
+./bin/git compare <pane_id> [base [head]] [--max-bytes N]
+./bin/git stage <pane_id> [--all | --path PATH]...
+./bin/git unstage <pane_id> [--all | --path PATH]...
+./bin/git commit <pane_id> -m MSG [-m MSG]... [--allow-empty]
+./bin/git branch create <pane_id> <name> [--switch]
+./bin/git branch switch <pane_id> <name>
+./bin/git upstream <pane_id> <upstream-ref>
+./bin/git fetch <pane_id> [remote] [--prune]
+./bin/git push <pane_id> [--set-upstream] [--force-with-lease]
     [remote] [refspec]
-bun run src/cli.ts remote <pane_id>
-bun run src/cli.ts pr list|status|create|view|reviews|comments|checks|logs
+./bin/git remote <pane_id>
+./bin/git pr list|status|create|view|reviews|comments|checks|logs
     <pane_id> [args] [--repo owner/name]
     pr reviews|comments|checks <pane> <number>
     pr logs <pane> <number> [--run ID | --job ID [--lines N]]
-bun run src/cli.ts pr review|comment|reply|reviewers|merge <pane_id> [args]
+./bin/git pr review|comment|reply|reviewers|merge <pane_id> [args]
     [--repo owner/name] --expect-head <full-sha>   (required)
     pr review <pane> <number> --approve|--request-changes|--comment
         [--body B | --body-file PATH|-]
@@ -58,29 +58,32 @@ bun run src/cli.ts pr review|comment|reply|reviewers|merge <pane_id> [args]
         [--add-reviewer LOGIN[,LOGIN]...] [--remove-reviewer LOGIN...]
     pr merge <pane> <number> [--squash|--merge|--rebase]
         [--auto | --disable-auto]
-bun run src/cli.ts issue list|view|create|edit|comment|close
+./bin/git issue list|view|create|edit|comment|close
     <pane_id> [args] [--repo owner/name]
     issue list: [--limit N] [--state open|closed|all]
         [--label L]... [--assignee U]... [--author U]
     issue view <pane> <number>
-bun run src/cli.ts issue edit <pane_id> <number> [args]
+./bin/git issue edit <pane_id> <number> [args]
     [--repo owner/name] [--title T] [--body B | --body-file PATH|-]
     [--add-label L]... [--remove-label L]...
     [--add-assignee U]... [--remove-assignee U]... [--state open|closed]
-bun run src/cli.ts issue comment <pane_id> <number>
+./bin/git issue comment <pane_id> <number>
     --body B|--body-file PATH|- [--repo owner/name]
-bun run src/cli.ts issue close <pane_id> <number>
+./bin/git issue close <pane_id> <number>
     [--reason completed|"not planned"] [--repo owner/name]
-bun run src/cli.ts issue link <pane_id> <owner>/<repo>#<n> [--verify]
-bun run src/cli.ts issue unlink <pane_id> <owner>/<repo>#<n>
-bun run src/cli.ts issue links <pane_id>
-bun run src/cli.ts project <pane_id> [--session NAME]
-bun run src/cli.ts capability
+./bin/git issue link <pane_id> <owner>/<repo>#<n> [--verify]
+./bin/git issue unlink <pane_id> <owner>/<repo>#<n>
+./bin/git issue links <pane_id>
+./bin/git project <pane_id> [--session NAME]
+./bin/git capability
 ```
 
 - Pane id may be omitted when `HERDR_PANE_ID` or the plugin action context
   supplies it.
-- Requires `git` on `PATH` and `bun` (plugin runtime prerequisite).
+- The plugin ships a committed native binary at `bin/git` (no Bun or
+  other runtime prerequisite). Requires `git` on `PATH`; `pr`/`issue`
+  additionally require `gh` ≥ 2.81.0 with authentication on the herdr
+  host.
 - All commands print exactly one JSON document on stdout. Handled errors
   print `{contract, ok:false, error:{code,message}}` on **stderr**.
 - **Exit codes:** `0` success; `1` handled runtime/environment failure
@@ -122,7 +125,7 @@ herdr host**; socket forwarding is not a supported path.
 ## Git/gh child environment
 
 Every `git` and `gh` child process runs with a sanitized environment
-(`plugins/git/src/git-env.ts`): ambient `GIT_*` variables that could
+(`plugins/git/src/gitenv.rs`): ambient `GIT_*` variables that could
 retarget the repository, index, object store, discovery, or config
 (`GIT_DIR`, `GIT_WORK_TREE`, `GIT_INDEX_FILE`, `GIT_CONFIG_COUNT`/
 `GIT_CONFIG_KEY_*`/`GIT_CONFIG_VALUE_*`/`GIT_CONFIG_PARAMETERS`,
@@ -642,7 +645,7 @@ the status data remains authoritative.
 {
   "contract": "herdr-plugins.git/v1",
   "plugin": "rebuildup.git",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "commands": [
     "capability", "status", "files", "diff", "log", "compare",
     "stage", "unstage", "commit", "branch", "upstream", "fetch",
@@ -653,7 +656,7 @@ the status data remains authoritative.
     "stage", "unstage", "commit", "branch", "upstream", "fetch",
     "push", "pr", "issue"
   ],
-  "requires": { "git": true, "bun": true },
+  "requires": { "git": true },
   "defaults": {
     "timeoutMs": 10000,
     "remoteTimeoutMs": 60000,

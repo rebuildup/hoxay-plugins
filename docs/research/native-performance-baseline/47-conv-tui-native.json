@@ -1,0 +1,46 @@
+{
+  "label": "conv-tui-native",
+  "command": "./plugins/conversations/bin/conversations tui main",
+  "runs": 12,
+  "warmup": 2,
+  "pty": "120x40",
+  "first_byte_ms": {
+    "n": 12,
+    "min": 17.8,
+    "p50": 27.8,
+    "p95": 346.2,
+    "p99": 346.2,
+    "max": 346.2,
+    "mean": 105.9,
+    "stdev": 130.2
+  },
+  "advance_ms": {
+    "n": 0
+  },
+  "data_usable_ms": {
+    "n": 12,
+    "min": 21.7,
+    "p50": 29.0,
+    "p95": 348.2,
+    "p99": 348.2,
+    "max": 348.2,
+    "mean": 108.2,
+    "stdev": 130.5
+  },
+  "marker_found": 12,
+  "exit_codes": [0],
+  "maxrss_kb": {
+    "n": 0
+  },
+  "pgid_peak_rss_kb": {
+    "n": 12,
+    "min": 6032,
+    "p50": 7744,
+    "p95": 8000,
+    "p99": 8000,
+    "max": 8000,
+    "mean": 7592.0,
+    "stdev": 506.2
+  },
+  "note": "first_byte = first PTY output; data_usable = first output matching --marker regex (post-load content); maxrss = top-level child only; pgid_peak_rss = summed RSS of process group sampled ~30ms (includes TUI-spawned CLI children, double-counts shared pages)"
+}

@@ -21,6 +21,7 @@ import {
 } from "../plugins/projects/src/runner";
 import { loadRuns, runLogPath, updateRuns } from "../plugins/projects/src/runs";
 import type { Project } from "../plugins/projects/src/state";
+import { inboxPluginRootFixture } from "./helpers/inbox-bin";
 import { testEnv } from "./helpers/test-env";
 
 const dirs: string[] = [];
@@ -45,6 +46,14 @@ function useStateDir(): string {
   const dir = tempDir();
   process.env.HERDR_PLUGIN_STATE_DIR = dir;
   process.env.HERDR_PLUGIN_CONFIG_DIR = path.join(dir, "config");
+  // `scripts run|stop|results|logs|tick` drain inbox settle triggers via
+  // config `inboxRoot`; point it at the platform-runnable fixture — the
+  // committed bin/inbox prebuilt is macOS arm64 only (#291).
+  mkdirSync(process.env.HERDR_PLUGIN_CONFIG_DIR, { recursive: true });
+  writeFileSync(
+    path.join(process.env.HERDR_PLUGIN_CONFIG_DIR, "config.json"),
+    `${JSON.stringify({ inboxRoot: inboxPluginRootFixture() }, null, 2)}\n`,
+  );
   return dir;
 }
 

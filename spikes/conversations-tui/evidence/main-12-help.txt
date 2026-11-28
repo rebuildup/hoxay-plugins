@@ -1,0 +1,31 @@
+# scenario=main step=12-help size=100x30 bg_rows=[]
+ rebuildup.conversations — sessions
+┌help──────────────────────────────────────────────────────────────────────────────────────────────┐
+│conversations TUI keymap                                                                          │
+│                                                                                                  │
+│  ↑↓/jk              move / scroll                                                                │
+│  pgup/pgdn/space    page                                                                         │
+│  enter              open / detail                                                                │
+│  /                  filter sessions                                                              │
+│  s                  search all sessions                                                          │
+│  i                  reindex (confirm)                                                            │
+│  n/p                next/prev page (events)                                                      │
+│  r                  reload                                                                       │
+│  ?                  help                                                                         │
+│  esc/q              back / quit                                                                  │
+│                                                                                                  │
+│Reads go through the conversations CLI contract; `index` is the only mutation and is confirm-gated│
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+┘

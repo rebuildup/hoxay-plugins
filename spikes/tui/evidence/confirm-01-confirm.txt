@@ -1,0 +1,31 @@
+# scenario=confirm step=01-confirm size=100x30 bg_rows=[16]
+ ready [CONFIRM]
+┌ Detail ──────────────────────────────────────────────────────────────────────────────────────────┐
+│café au lait (combining)                                                                     ▲│
+│                                                                                                 █│
+│Combining char: café vs precomposedcafé. Width must stay 1 cell.                                █│
+│                                    🇵                                                         █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                       █│
+│                                                                                              █│
+│                        ┌Confirm─────────────────────────────────────────┐                       █│
+│                        │Delete item?                                    │                       █│
+│                        │                                                │                       █│
+│                        │Target: inbox-2                                 │                       █│
+│                        │Consequence: permanent removal (spike demo)     │                       █│
+│                        │                                                │                       █│
+│                        │ y  confirm    n/Esc  cancel                    │                       █│
+│                        │                                                │                       █│
+│                        └────────────────────────────────────────────────┘                       █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 ║│
+│                                                                                                 ║│
+│                                                                                                 ▼│
+└─────────────────────────────────────────────────────────────────────────────────────────────��────
+? help  / filter  r refresh  d delete  Enter detail  q quit

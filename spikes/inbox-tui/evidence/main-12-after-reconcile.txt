@@ -1,0 +1,31 @@
+# scenario=main step=12-after-reconcile size=100x30 bg_rows=[]
+ Inbox — /var/tmp/np291-herdr/config/herdr/sessions/np291/herdr.sock · scope:inbox 1/4
+
+❯ w1:p4                                                                                           w1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ reconcile: cleared=0 pruned=0 projected=3 · ? help · q quit

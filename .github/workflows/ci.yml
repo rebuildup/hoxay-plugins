@@ -12,5 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: oven-sh/setup-bun@v2
+      - uses: dtolnay/rust-toolchain@stable
       - run: bun install --frozen-lockfile
       - run: bun run validate:fast

@@ -1,0 +1,33 @@
+# scenario=forge step=01-home size=110x32 bg_rows=[]
+Git Forge v0.7.0 — pane w2:p1
+❯ Pull requests  list / view / review / comment / merge (gh-backed)
+  Issues  list / view / create / edit / comment / close (gh-backed)
+  PR for current branch  open PR of the pinned pane's current branch, or honest none
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+j/k move · enter open · p pane · o repo · q quit
+ Git Forge

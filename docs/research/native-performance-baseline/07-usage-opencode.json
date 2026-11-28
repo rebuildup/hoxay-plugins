@@ -1,0 +1,17 @@
+{
+  "label": "usage-opencode",
+  "command": "bun run plugins/usage/src/cli.ts usage --offline --provider opencode",
+  "runs": 30,
+  "warmup": 3,
+  "failures": 0,
+  "wall_ms": {
+    "n": 30,
+    "min": 164,
+    "p50": 235,
+    "p95": 1610,
+    "p99": 1643,
+    "max": 1643,
+    "mean": 590.9,
+    "stdev": 533.8
+  }
+}

@@ -2,81 +2,82 @@ id = "rebuildup.git"
 name = "Git"
 version = "0.7.0"
 min_herdr_version = "0.9.0"
-description = "Git status/diff for agent panes: branch, change counts, per-file changes, bounded patches, and pane metadata projection."
-platforms = ["linux", "macos", "windows"]
+description = "Git status/diff for agent panes: branch, change counts, per-file changes, bounded patches, pane metadata projection, GitHub PR/issue forge surface, and interactive TUIs (contracts herdr-plugins.git/v1, herdr-plugins.tui/v1)."
+platforms = ["macos"]
 
-# No build step: the plugin is dependency-free TypeScript executed by Bun
-# (runtime prerequisite, see plugins/git/README.md).
+# No build step for normal installs: the plugin ships a committed
+# prebuilt native binary (ADR-0035). Verified platform: macOS arm64 only;
+# other platforms are declared honestly once their binaries exist.
 
 # Interactive TUI surfaces (contract docs/contracts/tui-v1.md, issues
 # #238/#239, ADR-0031/0032/0033). `main` is the repository-status pane
 # entrypoint and `forge` the GitHub PR/issue browser; `open`/`open-forge`
 # actions pin the origin context and call `plugin.pane.open`. The UIs
-# consume this plugin's own CLI for every read/mutation, so the public
-# contract stays the single source of truth; mutations are
-# confirm-gated against `capability`/`mutation_commands` and
-# re-validated before they run.
+# consume this plugin's own CLI for every read/mutation (the forge TUI
+# spawns `./bin/git` as a subprocess), so the public contract stays the
+# single source of truth; mutations are confirm-gated against
+# `capability`/`mutation_commands` and re-validated before they run.
 
 [[panes]]
 id = "main"
 title = "Git: repository"
-platforms = ["linux", "macos", "windows"]
+platforms = ["macos"]
 placement = "tab"
-command = ["bun", "run", "src/tui.ts", "main"]
+command = ["./bin/git", "tui", "main"]
 
 [[actions]]
 id = "open"
 title = "Git: open UI"
 description = "Open the interactive git TUI for the focused pane's repository."
 contexts = ["pane"]
-command = ["bun", "run", "src/tui.ts", "--open"]
+command = ["./bin/git", "tui", "--open"]
 
 [[panes]]
 id = "forge"
 title = "Git: forge"
 description = "GitHub PR/issue browser: open PRs, branch status, issue lists, detail views with comments/reviews/checks/logs, and confirm-gated review/comment/merge/issue mutations."
-platforms = ["linux", "macos", "windows"]
+platforms = ["macos"]
 placement = "tab"
-command = ["bun", "run", "src/tui-forge.ts", "main"]
+command = ["./bin/git", "tui", "forge"]
 
 [[actions]]
 id = "open-forge"
 title = "Git: open forge UI"
 description = "Open the GitHub PR/issue forge TUI in a new tab."
 contexts = ["pane", "workspace"]
-command = ["bun", "run", "src/tui-forge.ts", "open"]
+command = ["./bin/git", "tui", "forge", "open"]
 
 [[actions]]
 id = "status"
 title = "Git: pane status"
 description = "Show the git status of the focused pane's repository as JSON."
 contexts = ["pane"]
-command = ["bun", "run", "src/cli.ts", "status"]
+command = ["./bin/git", "status"]
 
 [[actions]]
 id = "files"
 title = "Git: pane changed files"
 description = "List the git changed files of the focused pane's repository as JSON."
 contexts = ["pane"]
-command = ["bun", "run", "src/cli.ts", "files"]
+command = ["./bin/git", "files"]
 
 [[actions]]
 id = "log"
 title = "Git: pane commit history"
 description = "Show recent commits of the focused pane's repository as JSON."
 contexts = ["pane"]
-command = ["bun", "run", "src/cli.ts", "log"]
+command = ["./bin/git", "log"]
 
 [[actions]]
 id = "compare"
 title = "Git: pane branch comparison"
 description = "Compare the focused pane's branch against its base as JSON."
 contexts = ["pane"]
-command = ["bun", "run", "src/cli.ts", "compare"]
+command = ["./bin/git", "compare"]
 
 [[actions]]
 id = "project"
 title = "Git: project pane metadata"
 description = "Refresh git_branch/git_changes pane metadata tokens for the focused pane."
 contexts = ["pane"]
-command = ["bun", "run", "src/cli.ts", "project"]
+command = ["./bin/git", "project"]

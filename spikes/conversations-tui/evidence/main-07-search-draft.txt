@@ -1,0 +1,31 @@
+# scenario=main step=07-search-draft size=100x30 bg_rows=[]
+ rebuildup.conversations — sessions
+┌search────────────────────────────────────────────────────────────────────────────────────────────┐
+│Search all indexed sessions                                                                       │
+│> cache invalidation█                                                                             │
+│substring over text/tool/model fields · enter submit · esc cancel                                 │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+┘

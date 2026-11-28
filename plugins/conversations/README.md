@@ -9,7 +9,12 @@ Provider transcript indexer for herdr panes
 herdr plugin install rebuildup/hoxay-plugins/plugins/conversations
 ```
 
-Prerequisites: herdr ≥ 0.9.0, Bun on `PATH`. `index`/`refresh`
+Runtime: a committed prebuilt native binary (`bin/conversations`, Rust —
+Issue #293, ADR-0035). No Bun or toolchain required to install or run.
+Verified platform: macOS arm64 (`platforms = ["macos"]` — honest until
+Linux/Windows binaries exist and are verified).
+
+Prerequisites: herdr ≥ 0.9.0. `index`/`refresh`
 additionally need a reachable herdr session (`--session`/`--socket` or
 the default socket); `capability`, `sessions --offline`, `history`,
 `search`, `show`, and `usage --offline` work without one (live-binding
@@ -49,14 +54,14 @@ atomic rename).
 
 ```bash
 # from the plugin root (see `herdr plugin list --json` → plugin_root)
-bun run src/cli.ts capability
-bun run src/cli.ts index [--session NAME] [--socket PATH] [--timeout MS]
-bun run src/cli.ts refresh   # alias of index
-bun run src/cli.ts sessions [--offline]
-bun run src/cli.ts history (--pane PANE | --session-id ID) [--limit N] [--cursor OFF] [--offline]
-bun run src/cli.ts search <query> [--pane PANE] [--session-id ID] [--provider ID] [--type TYPE] [--limit N] [--cursor CUR] [--offline]
-bun run src/cli.ts usage [--pane PANE] [--session-id ID] [--provider ID] [--limit N] [--cursor CUR] [--offline]
-bun run src/cli.ts show <event-id|tool:ID|turn:N> [--pane PANE] [--session-id ID] [--provider ID] [--offline]
+./bin/conversations capability
+./bin/conversations index [--session NAME] [--socket PATH] [--timeout MS]
+./bin/conversations refresh   # alias of index
+./bin/conversations sessions [--offline]
+./bin/conversations history (--pane PANE | --session-id ID) [--limit N] [--cursor OFF] [--offline]
+./bin/conversations search <query> [--pane PANE] [--session-id ID] [--provider ID] [--type TYPE] [--limit N] [--cursor CUR] [--offline]
+./bin/conversations usage [--pane PANE] [--session-id ID] [--provider ID] [--limit N] [--cursor CUR] [--offline]
+./bin/conversations show <event-id|tool:ID|turn:N> [--pane PANE] [--session-id ID] [--provider ID] [--offline]
 ```
 
 - `index`/`refresh` → `{indexed: [...], skipped: [...]}` — skipped

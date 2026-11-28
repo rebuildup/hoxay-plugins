@@ -1,0 +1,41 @@
+{
+  "number": 7,
+  "title": "Add forge TUI parity fixes",
+  "state": "OPEN",
+  "body": "Body text for the evidence PR.",
+  "isDraft": false,
+  "author": {
+    "login": "octo"
+  },
+  "headRefName": "feat/forge-parity",
+  "headRefOid": "0123456789abcdef0123456789abcdef01234567",
+  "baseRefName": "main",
+  "mergeable": "MERGEABLE",
+  "mergeStateStatus": "CLEAN",
+  "reviewDecision": "APPROVED",
+  "updatedAt": "2025-01-02T00:00:00Z",
+  "createdAt": "2025-01-01T00:00:00Z",
+  "url": "https://github.com/octo/repo/pull/7",
+  "reviews": [
+    {
+      "author": {
+        "login": "rev1"
+      },
+      "state": "APPROVED",
+      "body": "lgtm",
+      "submittedAt": "2025-01-02T01:00:00Z"
+    }
+  ],
+  "comments": [
+    {
+      "author": {
+        "login": "c1"
+      },
+      "body": "looks good",
+      "createdAt": "2025-01-02T02:00:00Z"
+    }
+  ],
+  "additions": 12,
+  "deletions": 3,
+  "changedFiles": 2
+}

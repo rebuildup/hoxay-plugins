@@ -1,0 +1,33 @@
+# scenario=main step=07-log size=110x32 bg_rows=[]
+repo: /private/var/folders/1l/fmlzfnk57zndv1pxwwkw6xrc0000gn/T/git-tui-fixture-kbo2df1p
+❯ d9261f5 add notes                                          d9261f5999c532ba21b75d65b8719d6af9ce1a21
+  cf526a3 initial commit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ main (no upstream) · unstaged 2 · untracked 1 · ? help · q quit

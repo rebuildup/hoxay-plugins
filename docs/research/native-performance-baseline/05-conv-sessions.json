@@ -1,0 +1,17 @@
+{
+  "label": "conv-sessions",
+  "command": "bun run plugins/conversations/src/cli.ts sessions --offline",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 34,
+    "p50": 49,
+    "p95": 148,
+    "p99": 219,
+    "max": 219,
+    "mean": 64.1,
+    "stdev": 38.5
+  }
+}

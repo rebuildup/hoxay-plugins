@@ -1,12 +1,13 @@
 id = "rebuildup.conversations"
 name = "Conversations"
-version = "0.6.0"
+version = "0.7.0"
 min_herdr_version = "0.9.0"
 description = "Provider transcript indexer: normalizes claude/codex/opencode session transcripts into structured conversation events (turn/user/assistant/tool/usage) under herdr-plugins.conversations/v1."
-platforms = ["linux", "macos", "windows"]
+platforms = ["macos"]
 
-# No build step: the plugin is dependency-free TypeScript executed by Bun
-# (runtime prerequisite, see plugins/conversations/README.md).
+# No build step for normal installs: the plugin ships a committed
+# prebuilt native binary (ADR-0035). Verified platform: macOS arm64 only;
+# other platforms are declared honestly once their binaries exist.
 #
 # Interactive TUI (contract docs/contracts/tui-v1.md, ADR-0031/0032/0033):
 # `main` is the session/history/search browser pane; `open` asks herdr to
@@ -16,13 +17,13 @@ platforms = ["linux", "macos", "windows"]
 [[panes]]
 id = "main"
 title = "Conversations"
-platforms = ["linux", "macos", "windows"]
+platforms = ["macos"]
 placement = "tab"
-command = ["bun", "run", "src/tui.ts", "main"]
+command = ["./bin/conversations", "tui", "main"]
 
 [[actions]]
 id = "open"
 title = "Conversations: open UI"
 description = "Open the conversations browser (sessions, history, search) in a herdr tab."
 contexts = ["workspace", "pane"]
-command = ["bun", "run", "src/tui.ts", "--open"]
+command = ["./bin/conversations", "tui", "--open"]

@@ -1,0 +1,31 @@
+# scenario=main step=13-confirm-index size=100x30 bg_rows=[]
+ rebuildup.conversations — sessions
+
+
+
+
+
+
+
+                    ┌confirm───────────────────────────────────────────────────┐
+                    │Reindex conversations                                     │
+                    │                                                          │
+                    │scope: every agent pane transcript visible to herdr in thi│
+                    │writes: <stateDir>/events/*.jsonl + state.json (opencode l│
+                    │                                                          │
+                    │Re-scans provider transcripts and rewrites normalized even│
+                    │enter/y apply · esc cancel                                │
+                    │                                                          │
+                    │                                                          │
+                    │                                                          │
+                    │                                                          │
+                    │                                                          │
+                    └──────────────────────────────────────────────────────────┘
+
+
+
+
+
+
+
+┘

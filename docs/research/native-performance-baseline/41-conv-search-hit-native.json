@@ -1,0 +1,17 @@
+{
+  "label": "conv-search-hit-native",
+  "command": "./plugins/conversations/bin/conversations search \"database migration\" --offline",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 20,
+    "p50": 36,
+    "p95": 55,
+    "p99": 91,
+    "max": 91,
+    "mean": 37.4,
+    "stdev": 12
+  }
+}

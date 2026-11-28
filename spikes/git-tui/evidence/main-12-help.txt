@@ -1,0 +1,33 @@
+# scenario=main step=12-help size=110x32 bg_rows=[]
+repo: /private/var/folders/1l/fmlzfnk57zndv1pxwwkw6xrc0000gn/T/git-tui-fixture-kbo2df1p
+┌help────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│Git TUI keymap                                                                                              │
+│                                                                                                            │
+│  j/k · ↑/↓                move                                                                             │
+│  pgup/pgdn · space        page                                                                             │
+│  home/end                 top/bottom                                                                       │
+│  /                        filter list                                                                      │
+│  enter                    open / select                                                                    │
+│  d                        file diff (files)                                                                │
+│  s                        stage file (files)                                                               │
+│  u                        unstage file / set upstream (files/branches)                                     │
+│  n                        new branch (branches)                                                            │
+│  r/R                      reload / refresh                                                                 │
+│  tab                      cycle diff scope (diff)                                                          │
+│  b                        set base revision (compare)                                                      │
+│  ?                        help                                                                             │
+│  esc/q                    back / quit / cancel task                                                        │
+│                                                                                                            │
+│Mutations are confirm-gated and revalidate the pinned target before running.                                │
+│                                                                                                            │
+│                                                                                                            │
+│                                                                                                            │
+│                                                                                                            │
+│                                                                                                            │
+│                                                                                                            │
+│                                                                                                            │
+│                                                                                                            │
+│                                                                                                            │
+│                                                                                                            │
+└────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+ main (no upstream) · unstaged 2 · untracked 1 · esc back · q quit

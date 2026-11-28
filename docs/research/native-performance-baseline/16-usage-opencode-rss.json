@@ -1,0 +1,28 @@
+{
+  "label": "usage-opencode-rss",
+  "command": "bun run plugins/usage/src/cli.ts usage --offline --provider opencode",
+  "runs": 12,
+  "warmup": 2,
+  "failures": 0,
+  "wall_ms": {
+    "n": 12,
+    "min": 295,
+    "p50": 412,
+    "p95": 613,
+    "p99": 613,
+    "max": 613,
+    "mean": 423.4,
+    "stdev": 94.3
+  },
+  "rss_kb": {
+    "n": 12,
+    "min": 35440,
+    "p50": 35824,
+    "p95": 36992,
+    "p99": 36992,
+    "max": 36992,
+    "mean": 35978.7,
+    "stdev": 392.1
+  },
+  "rss_note": "max RSS of the top-level process only (children not attributed); /usr/bin/time -l overhead included"
+}

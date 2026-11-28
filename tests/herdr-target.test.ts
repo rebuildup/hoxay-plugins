@@ -14,6 +14,8 @@ import {
   type TargetErrorCode,
   TargetResolutionError,
 } from "../packages/herdr-client/src/index";
+import { gitBinary } from "./helpers/git-bin";
+import { inboxBinary } from "./helpers/inbox-bin";
 import { herdrSocketEndpoint, testEnv } from "./helpers/test-env";
 
 // ---------------------------------------------------------------------------
@@ -372,13 +374,18 @@ async function runPluginCli(
   const childEnv = testEnv(env, { pluginDirs: "derive" });
   // Async spawn: the fake herdr servers live in this same process, so a
   // blocking spawnSync would starve them and every request would time out.
+  // TypeScript plugin entrypoints run under `bun run`; native binaries
+  // (plugins/inbox/bin/inbox, #291) are spawned directly.
+  const isTs = pluginCli.endsWith(".ts");
+  const spawnArgs = isTs ? ["run", pluginCli, ...args] : args;
+  const command = isTs ? process.execPath : pluginCli;
   const result = await new Promise<{
     status: number | null;
     stdout: string;
     stderr: string;
     error?: Error;
   }>((resolve) => {
-    const child = spawn(process.execPath, ["run", pluginCli, ...args], {
+    const child = spawn(command, spawnArgs, {
       env: childEnv,
     });
     let stdout = "";
@@ -427,8 +434,11 @@ describe("CLI target isolation (fake herdr sessions)", () => {
   let sockBPath = "";
   let defaultSockPath = "";
   let stateFile = "";
-  const INBOX_CLI = path.join(import.meta.dir, "..", "plugins", "inbox", "src", "cli.ts");
-  const GIT_CLI = path.join(import.meta.dir, "..", "plugins", "git", "src", "cli.ts");
+  // rebuildup.inbox is native since #291: spawn the shipped binary
+  // directly (plugins/inbox/bin/inbox, cargo target fallback).
+  const INBOX_BIN = inboxBinary();
+  // rebuildup.git is native since #292: spawn the shipped binary.
+  const GIT_CLI = gitBinary();
 
   const servers: FakeHerdr[] = [];
   const baseEnv = () => ({
@@ -462,7 +472,7 @@ describe("CLI target isolation (fake herdr sessions)", () => {
 
   test("ambient A + explicit --session B: conflict, zero side effects on A", async () => {
     const before = JSON.stringify(stateEntries());
-    const run = await runPluginCli(INBOX_CLI, ["settle", "w1:p1", "--session", "bbb"], {
+    const run = await runPluginCli(INBOX_BIN, ["settle", "w1:p1", "--session", "bbb"], {
       ...baseEnv(),
       HERDR_SOCKET_PATH: sockAPath,
       HERDR_SESSION: "aaa",
@@ -477,7 +487,7 @@ describe("CLI target isolation (fake herdr sessions)", () => {
   }, 60_000);
 
   test("consistent ambient + explicit --session B settles on B only", async () => {
-    const run = await runPluginCli(INBOX_CLI, ["settle", "w1:p1", "--session", "bbb"], {
+    const run = await runPluginCli(INBOX_BIN, ["settle", "w1:p1", "--session", "bbb"], {
       ...baseEnv(),
       HERDR_SOCKET_PATH: sockBPath,
       HERDR_SESSION: "bbb",
@@ -498,7 +508,7 @@ describe("CLI target isolation (fake herdr sessions)", () => {
   test("ambient-only settle targets the ambient session", async () => {
     const bSnapshotsBefore =
       servers[1]?.requests.filter((r) => r.method === "session.snapshot").length ?? 0;
-    const run = await runPluginCli(INBOX_CLI, ["settle", "w1:p1"], {
+    const run = await runPluginCli(INBOX_BIN, ["settle", "w1:p1"], {
       ...baseEnv(),
       HERDR_SOCKET_PATH: sockAPath,
       HERDR_SESSION: "aaa",
@@ -511,7 +521,7 @@ describe("CLI target isolation (fake herdr sessions)", () => {
   }, 60_000);
 
   test("mutation with no explicit/ambient target fails closed", async () => {
-    const run = await runPluginCli(INBOX_CLI, ["settle", "w1:p1"], baseEnv());
+    const run = await runPluginCli(INBOX_BIN, ["settle", "w1:p1"], baseEnv());
     expect(run.status).toBe(1);
     expect(run.errorCode).toBe("target_required");
     // Even the default-session fake saw nothing.
@@ -519,7 +529,7 @@ describe("CLI target isolation (fake herdr sessions)", () => {
   }, 60_000);
 
   test("read command still uses the implicit default socket", async () => {
-    const run = await runPluginCli(INBOX_CLI, ["list"], baseEnv());
+    const run = await runPluginCli(INBOX_BIN, ["list"], baseEnv());
     expect(run.status).toBe(0);
     expect(servers[2]?.requests.map((r) => r.method)).toContain("session.snapshot");
   }, 60_000);
@@ -527,7 +537,7 @@ describe("CLI target isolation (fake herdr sessions)", () => {
   test("ambient workspace mismatch fails closed before metadata writes", async () => {
     const b = servers[1];
     const snapshotCount = b?.requests.length ?? 0;
-    const run = await runPluginCli(INBOX_CLI, ["settle"], {
+    const run = await runPluginCli(INBOX_BIN, ["settle"], {
       ...baseEnv(),
       HERDR_SOCKET_PATH: sockBPath,
       HERDR_PANE_ID: "w1:p1",
@@ -544,7 +554,7 @@ describe("CLI target isolation (fake herdr sessions)", () => {
   }, 60_000);
 
   test("explicit pane positional overrides ambient pane id", async () => {
-    const run = await runPluginCli(INBOX_CLI, ["settle", "w1:p1"], {
+    const run = await runPluginCli(INBOX_BIN, ["settle", "w1:p1"], {
       ...baseEnv(),
       HERDR_SOCKET_PATH: sockBPath,
       HERDR_PANE_ID: "w9:p9",

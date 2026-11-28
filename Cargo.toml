@@ -1,0 +1,19 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/herdr-client",
+    "crates/tui",
+    "plugins/conversations",
+    "plugins/inbox",
+    "plugins/git",
+]
+
+[workspace.package]
+edition = "2021"
+license = "MIT"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+strip = "symbols"

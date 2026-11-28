@@ -1,0 +1,31 @@
+# scenario=main step=08-confirm-settle size=100x30 bg_rows=[]
+ Inbox — /var/tmp/np291-herdr/config/herdr/sessions/np291/herdr.sock · scope:inbox 2/4
+
+
+
+
+
+
+
+                         ┌confirm─────────────────────────────────────────┐
+                         │Settle pane?                                    │
+                         │                                                │
+                         │pane: w1:p3                                     │
+                         │cwd: /private/tmp/np291-b                       │
+                         │cli: inbox settle w1:p3                         │
+                         │                                                │
+                         │Hides the pane from the inbox until its agent st│
+                         │enter/y apply · esc cancel                      │
+                         │                                                │
+                         │                                                │
+                         │                                                │
+                         └────────────────────────────────────────────────┘
+
+
+
+
+
+
+
+
+ 2 inbox · 0 attention · ? help · q quit

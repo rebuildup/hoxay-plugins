@@ -1,0 +1,17 @@
+{
+  "label": "conv-history-native",
+  "command": "./plugins/conversations/bin/conversations history --session-id claude:sess-10148 --limit 200 --offline",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 19,
+    "p50": 25,
+    "p95": 36,
+    "p99": 59,
+    "max": 59,
+    "mean": 26.6,
+    "stdev": 6.4
+  }
+}

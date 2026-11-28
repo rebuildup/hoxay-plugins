@@ -1,0 +1,8 @@
+mac:tui rebui$ /Users/rebui/work/hoxay-wt/289/spikes/tui/target/release/hoxay-tui-spike
+mac:tui rebui$
+mac:tui rebui$ /Users/rebui/work/hoxay-wt/289/spikes/tui/target/release/hoxay-tui-spike
+mac:tui rebui$ stty size; tput cols
+40 119
+119
+mac:tui rebui$ /Users/rebui/work/hoxay-wt/289/spikes/tui/target/release/hoxay-tui-spike
+mac:tui rebui$

@@ -6,3 +6,6 @@ dist/
 .tmp/
 .reference/
 coverage/
+spikes/*/target/
+spikes/tui/.venv/
+target/

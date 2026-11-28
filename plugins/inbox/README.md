@@ -6,8 +6,10 @@ settle / snooze / pin / archive / manual-ordering / restore organize model.
 - Plugin ID: `rebuildup.inbox`
 - Install: `herdr plugin install rebuildup/hoxay-plugins/plugins/inbox`
   (pre-release: append `--ref release-0-9-0` or a commit SHA)
-- Runtime prerequisite: [Bun](https://bun.sh) on `PATH` (plugin commands run
-  `bun run src/cli.ts`; see ADR-0003 for the no-daemon/Bun decision).
+- Runtime: a committed prebuilt native binary (`bin/inbox`, Rust — Issue
+  #291, ADR-0035). No Bun or toolchain required to install or run.
+  Verified platform: macOS arm64 (`platforms = ["macos"]` — honest until
+  Linux/Windows binaries exist and are verified).
 
 ## What it does
 
@@ -48,25 +50,28 @@ execution state, and attention statuses (e.g. `blocked`) are never hidden.
 
 ## Commands
 
+From a plugin checkout, the binary is `./bin/inbox` (installed plugins get
+the same relative argv through the manifest):
+
 ```bash
-bun run src/cli.ts list [--session NAME] [--socket PATH]
-bun run src/cli.ts settle <pane_id>
-bun run src/cli.ts snooze <pane_id> --until <iso8601|+30m|+2h|+1d>
-bun run src/cli.ts restore <pane_id>
-bun run src/cli.ts pin <pane_id>
-bun run src/cli.ts unpin <pane_id>
-bun run src/cli.ts archive <pane_id>
-bun run src/cli.ts unarchive <pane_id>
-bun run src/cli.ts order <pane_id> --first|--last|--before <pane>|--after <pane>
-bun run src/cli.ts list --attention --organize settled --search <text> --workspace <id>
-bun run src/cli.ts link <pane_id> --pr <owner>/<repo>#<n> [--verify]
-bun run src/cli.ts unlink <pane_id> --issue <owner>/<repo>#<n>
-bun run src/cli.ts links <pane_id>
-bun run src/cli.ts reconcile
-bun run src/cli.ts transitions [--after <seq>] [--limit <n>]
-bun run src/cli.ts watch [--interval SECONDS]
-bun run src/cli.ts watch-pr [pane_id] [--interval SECONDS] [--once] [--git-root PATH]
-bun run src/cli.ts capability
+./bin/inbox list [--session NAME] [--socket PATH]
+./bin/inbox settle <pane_id>
+./bin/inbox snooze <pane_id> --until <iso8601|+30m|+2h|+1d>
+./bin/inbox restore <pane_id>
+./bin/inbox pin <pane_id>
+./bin/inbox unpin <pane_id>
+./bin/inbox archive <pane_id>
+./bin/inbox unarchive <pane_id>
+./bin/inbox order <pane_id> --first|--last|--before <pane>|--after <pane>
+./bin/inbox list --attention --organize settled --search <text> --workspace <id>
+./bin/inbox link <pane_id> --pr <owner>/<repo>#<n> [--verify]
+./bin/inbox unlink <pane_id> --issue <owner>/<repo>#<n>
+./bin/inbox links <pane_id>
+./bin/inbox reconcile
+./bin/inbox transitions [--after <seq>] [--limit <n>]
+./bin/inbox watch [--interval SECONDS]
+./bin/inbox watch-pr [pane_id] [--interval SECONDS] [--once] [--git-root PATH]
+./bin/inbox capability
 ```
 
 Inside a manifest action or event hook, `<pane_id>` may be omitted; the
@@ -74,11 +79,11 @@ plugin resolves it from `HERDR_PANE_ID` / `HERDR_PLUGIN_CONTEXT_JSON`.
 
 ## Interactive TUI
 
-Plugin v0.7.0 adds an interactive terminal surface (`herdr-plugins.tui/v1`,
-ADR-0031/0032/0033):
+The plugin ships an interactive terminal surface (`herdr-plugins.tui/v1`,
+ADR-0031/0032/0033) inside the same binary:
 
 - Pane entrypoint `main` (`[[panes]]`, placement `tab`) runs
-  `bun run src/tui.ts` — an inbox browser with attention states,
+  `./bin/inbox tui` — an inbox browser with attention states,
   `/`-filter, scope cycling, pin/order/archive, settle/snooze/restore,
   PR/Issue link management, the transition log, and explicit `reconcile`.
 - Action `open` (`rebuildup.inbox.open`) opens that pane via
@@ -123,3 +128,7 @@ Config (`config.json`, e.g. `defaultSnooze`) lives under the plugin config
 dir. `snooze` also detaches a one-shot wake process that restores the pane
 at its deadline without a resident daemon (ADR-0005). Nothing is written
 inside the installed source tree.
+
+State files written by the previous TypeScript implementation (schema v2)
+are read verbatim by the Rust port — settle/snooze/pin/archive marks,
+tracker links, watch baselines, and the transition log all carry over.

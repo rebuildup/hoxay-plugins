@@ -1,0 +1,31 @@
+# scenario=main step=10-filtered size=100x30 bg_rows=[]
+ rebuildup.conversations — sessions
+  claude:sess-10888                                                                               ok
+❯ claude:sess-10851                                                                               ok
+  claude:sess-10740                                                                               ok
+  claude:sess-10629                                                                               ok
+  claude:sess-10555                                                                               ok
+  claude:sess-10407                                                                               ok
+  claude:sess-10222                                                                               ok
+  claude:sess-10333                                                                               ok
+  claude:sess-10296                                                                               ok
+  claude:sess-10148                                                                               ok
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+┘ · ? help · q quit

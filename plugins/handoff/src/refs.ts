@@ -98,9 +98,12 @@ const OWNERS: Record<string, OwnerSpec> = {
   },
 };
 
-async function isOwnerRoot(dir: string, pluginId: string): Promise<boolean> {
+async function isOwnerRoot(dir: string, pluginId: string, dirName: string): Promise<boolean> {
   try {
-    const cli = await stat(path.join(dir, "src", "cli.ts"));
+    // Native distribution (ADR-0035): prefer bin/<name>; src/cli.ts is
+    // the legacy Bun entrypoint fallback.
+    const bin = await stat(path.join(dir, "bin", dirName)).catch(() => null);
+    const cli = bin?.isFile() === true ? bin : await stat(path.join(dir, "src", "cli.ts"));
     if (!cli.isFile()) return false;
     const tomlPath = path.join(dir, "herdr-plugin.toml");
     const toml = await stat(tomlPath).catch(() => null);
@@ -113,10 +116,16 @@ async function isOwnerRoot(dir: string, pluginId: string): Promise<boolean> {
   }
 }
 
+/** `rebuildup.<name>` → sibling directory/binary name `<name>`. */
+function pluginDirName(pluginId: string): string {
+  const dot = pluginId.indexOf(".");
+  return dot === -1 ? pluginId : pluginId.slice(dot + 1);
+}
+
 /** Sibling plugins/<dir>, then `herdr plugin list --json` discovery. */
 async function ownerRoot(spec: OwnerSpec): Promise<string | null> {
   const sibling = path.resolve(import.meta.dir, "..", "..", spec.dir);
-  if (await isOwnerRoot(sibling, spec.pluginId)) return sibling;
+  if (await isOwnerRoot(sibling, spec.pluginId, spec.dir)) return sibling;
 
   const herdrBin = process.env.HERDR_BIN_PATH || "herdr";
   const stdout = await new Promise<string | null>((resolve) => {
@@ -143,7 +152,7 @@ async function ownerRoot(spec: OwnerSpec): Promise<string | null> {
       const id = e.plugin_id ?? e.id;
       const root = e.plugin_root ?? e.root;
       if (id === spec.pluginId && typeof root === "string" && root !== "") {
-        if (await isOwnerRoot(root, spec.pluginId)) return root;
+        if (await isOwnerRoot(root, spec.pluginId, spec.dir)) return root;
       }
     }
   } catch {
@@ -182,8 +191,15 @@ async function runOwnerCli(root: string, pluginId: string, args: string[]): Prom
   env.HERDR_PLUGIN_CONFIG_DIR = path.join(herdrConfigDir(), "plugins", "config", component);
   env.HERDR_PLUGIN_ID = pluginId;
 
+  // Native distribution (ADR-0035): bin/<dir> spawns directly; the
+  // legacy src/cli.ts entrypoint runs under `bun run`.
+  const bin = path.join(root, "bin", pluginDirName(pluginId));
+  const binInfo = await stat(bin).catch(() => null);
+  const useNative = binInfo?.isFile() === true;
+  const command = useNative ? bin : process.execPath;
+  const argv = useNative ? args : ["run", path.join(root, "src", "cli.ts"), ...args];
   return new Promise((resolve) => {
-    const child = spawn(process.execPath, ["run", path.join(root, "src", "cli.ts"), ...args], {
+    const child = spawn(command, argv, {
       cwd: root,
       env,
       stdio: ["ignore", "pipe", "pipe"],

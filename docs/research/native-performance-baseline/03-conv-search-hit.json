@@ -1,0 +1,17 @@
+{
+  "label": "conv-search-hit",
+  "command": "bun run plugins/conversations/src/cli.ts search database migration --offline",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 46,
+    "p50": 169,
+    "p95": 1321,
+    "p99": 7317,
+    "max": 7317,
+    "mean": 446.2,
+    "stdev": 1179.8
+  }
+}

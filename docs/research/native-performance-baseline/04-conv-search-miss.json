@@ -1,0 +1,17 @@
+{
+  "label": "conv-search-miss",
+  "command": "bun run plugins/conversations/src/cli.ts search zzzqqq-nomatch --offline",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 89,
+    "p50": 185,
+    "p95": 572,
+    "p99": 809,
+    "max": 809,
+    "mean": 270.4,
+    "stdev": 187.8
+  }
+}

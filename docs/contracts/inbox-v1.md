@@ -42,7 +42,7 @@ mutation, gates every mutation behind confirmation, and never runs
 {
   "contract": "herdr-plugins.inbox/v1",
   "plugin": "rebuildup.inbox",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "commands": [
     "list", "settle", "snooze", "restore",
     "pin", "unpin", "archive", "unarchive", "order",
@@ -55,6 +55,26 @@ mutation, gates every mutation behind confirmation, and never runs
     "link", "unlink",
     "reconcile", "watch", "watch-pr"
   ],
+  "command_metadata": {
+    "list":        { "kind": "read", "idempotent": true, "coalesce": true, "freshness": "event-driven", "invalidation": "pull" },
+    "links":       { "kind": "read", "idempotent": true, "coalesce": true, "freshness": "event-driven", "invalidation": "pull" },
+    "transitions": { "kind": "read", "idempotent": true, "coalesce": true, "freshness": "snapshot-consistent", "invalidation": "pull" },
+    "capability":  { "kind": "read", "idempotent": true, "coalesce": true },
+    "help":        { "kind": "read", "idempotent": true, "coalesce": true },
+    "settle":      { "kind": "mutation", "idempotent": true },
+    "snooze":      { "kind": "mutation", "idempotent": true },
+    "restore":     { "kind": "mutation", "idempotent": true },
+    "pin":         { "kind": "mutation", "idempotent": true },
+    "unpin":       { "kind": "mutation", "idempotent": true },
+    "archive":     { "kind": "mutation", "idempotent": true },
+    "unarchive":   { "kind": "mutation", "idempotent": true },
+    "order":       { "kind": "mutation", "idempotent": true },
+    "link":        { "kind": "mutation", "idempotent": true },
+    "unlink":      { "kind": "mutation", "idempotent": true },
+    "reconcile":   { "kind": "mutation", "idempotent": true },
+    "watch":       { "kind": "mutation" },
+    "watch-pr":    { "kind": "mutation" }
+  },
   "actions": ["open", "settle", "restore", "snooze", "pin", "unpin", "archive", "unarchive"],
   "tui": { "contract": "herdr-plugins.tui/v1", "entrypoint": "main", "action": "open" },
   "events": ["pane.agent_status_changed", "pane.closed"],
@@ -90,6 +110,13 @@ plugin v0.6.0, #224 — additive) advertises the full set of state/herdr-
 visible mutating commands: the organize verbs, `order`, `link`/`unlink`,
 `reconcile`, `watch`, and `watch-pr`; `list`, `links`, `transitions`, and
 `capability` are read-only.
+
+`command_metadata` (added in plugin v0.8.0, #263 minimal subset — additive)
+maps each command to `{ kind, idempotent?, coalesce?, freshness?,
+invalidation? }`. `commands`/`mutation_commands` are unchanged; consumers
+MUST treat the section as optional and fall back to conservative
+defaults when absent. Daemon-class commands (`watch`, `watch-pr`) omit
+`idempotent` — they are excluded from retry/coalesce semantics.
 
 **Ambient pane identity**: when the pane id comes from `HERDR_PANE_ID` or
 `HERDR_PLUGIN_CONTEXT_JSON.focused_pane_id` (not an explicit positional),

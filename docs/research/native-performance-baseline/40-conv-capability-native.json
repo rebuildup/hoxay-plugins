@@ -1,0 +1,17 @@
+{
+  "label": "conv-capability-native",
+  "command": "./plugins/conversations/bin/conversations capability",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 8,
+    "p50": 17,
+    "p95": 29,
+    "p99": 38,
+    "max": 38,
+    "mean": 18.5,
+    "stdev": 5.9
+  }
+}

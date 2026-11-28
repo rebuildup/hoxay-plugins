@@ -1,0 +1,17 @@
+{
+  "label": "inbox-list",
+  "command": "bun run plugins/inbox/src/cli.ts list",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 234,
+    "p50": 276,
+    "p95": 355,
+    "p99": 483,
+    "max": 483,
+    "mean": 294.2,
+    "stdev": 48
+  }
+}

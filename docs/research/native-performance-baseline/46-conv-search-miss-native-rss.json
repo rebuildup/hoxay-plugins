@@ -1,0 +1,28 @@
+{
+  "label": "conv-search-miss-rss-native",
+  "command": "./plugins/conversations/bin/conversations search \"zzzqqq-nomatch\" --offline",
+  "runs": 12,
+  "warmup": 2,
+  "failures": 0,
+  "wall_ms": {
+    "n": 12,
+    "min": 44,
+    "p50": 89,
+    "p95": 232,
+    "p99": 232,
+    "max": 232,
+    "mean": 119.9,
+    "stdev": 67.6
+  },
+  "rss_kb": {
+    "n": 12,
+    "min": 7328,
+    "p50": 7440,
+    "p95": 7488,
+    "p99": 7488,
+    "max": 7488,
+    "mean": 7414.7,
+    "stdev": 55.6
+  },
+  "rss_note": "max RSS of the top-level process only (children not attributed); /usr/bin/time -l overhead included"
+}

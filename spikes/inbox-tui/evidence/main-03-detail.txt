@@ -1,0 +1,31 @@
+# scenario=main step=03-detail size=100x30 bg_rows=[]
+ Inbox — /var/tmp/np291-herdr/config/herdr/sessions/np291/herdr.sock · scope:inbox 2/4
+
+┌Inbox item — w1:p4────────────────────────────────────────────────────────────────────────────────┐
+│pane:      w1:p4                                                                                  │
+│workspace: w1                                                                                     │
+│tab:       w1:t1                                                                                  │
+│cwd:       /Users/rebui                                                                           │
+│pinned:    no                                                                                     │
+│attention: no                                                                                     │
+│inbox:     visible                                                                                │
+│links:     none                                                                                   │
+│generated: 2026-11-27T20:07:22.318Z                                                               │
+│                                                                                                  │
+│Mutations go through the inbox domain — the TUI never                                             │
+│writes organize state directly. `?` shows the keymap.                                             │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+ 2 inbox · 0 attention · ? help · q quit

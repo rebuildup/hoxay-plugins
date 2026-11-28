@@ -1,0 +1,31 @@
+# scenario=main step=02-selected size=100x30 bg_rows=[]
+ rebuildup.conversations — sessions
+  claude:sess-10888                                                                               ok
+❯ claude:sess-10851                                                                               ok
+  opencode:sess-10814                                                                             ok
+  claude:sess-10740                                                                               ok
+  codex:sess-10703                                                                                ok
+  codex:sess-10777                                                                                ok
+  opencode:sess-10666                                                                             ok
+  claude:sess-10629                                                                               ok
+  claude:sess-10555                                                                               ok
+  opencode:sess-10592                                                                             ok
+  codex:sess-10518                                                                                ok
+  codex:sess-10481                                                                                ok
+  opencode:sess-10444                                                                             ok
+  claude:sess-10407                                                                               ok
+  codex:sess-10370                                                                                ok
+  claude:sess-10222                                                                               ok
+  claude:sess-10333                                                                               ok
+  claude:sess-10296                                                                               ok
+  claude:sess-10148                                                                               ok
+  opencode:sess-10111                                                                             ok
+  codex:sess-10259                                                                                ok
+  codex:sess-10074                                                                                ok
+  codex:sess-10185                                                                                ok
+  opencode:sess-10037                                                                             ok
+  codex:sess-10000                                                                                ok
+
+
+
+  · ? help · q quit

@@ -1,0 +1,17 @@
+{
+  "label": "bun-empty",
+  "command": "bun -e 0",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 11,
+    "p50": 24,
+    "p95": 30,
+    "p99": 37,
+    "max": 37,
+    "mean": 23.5,
+    "stdev": 5.1
+  }
+}

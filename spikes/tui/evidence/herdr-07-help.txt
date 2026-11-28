@@ -1,0 +1,40 @@
+ ready [HELP]
+┌Help─────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│Keys: j/k or ↑/↓ move   Enter detail   / filter   r async refresh   d delete(confirm)                                │
+│      Esc/q back/close   ? help   Ctrl-C cancel op / exit   mouse: click select, wheel scroll                        │
+│IME: composition is handled by the terminal/OS; this app only sees committed UTF-8.                                  │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+│                                                                                                                     │
+└─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+? help  / filter  r refresh  d delete  Enter detail  q quit

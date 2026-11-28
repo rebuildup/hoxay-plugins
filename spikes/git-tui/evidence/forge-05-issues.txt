@@ -1,0 +1,33 @@
+# scenario=forge step=05-issues size=110x32 bg_rows=[]
+Git Forge v0.7.0 — pane w2:p1
+❯ #5 Forge TUI shows stale pane id (open)
+  #6 Diff harness flakes on tmp paths (open)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+enter open · s state · l labels · n create · / filter · R refresh · esc back
+ Git Forge

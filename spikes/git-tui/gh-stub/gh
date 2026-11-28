@@ -1,0 +1,44 @@
+#!/bin/sh
+# Deterministic `gh` stub for spikes/git-tui PTY evidence (Issue #292).
+# Returns canned JSON/text from ./data so the forge TUI renders real UI
+# without network or a GitHub token. drive.py puts this dir on PATH.
+DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)/data
+case "$1" in
+  --version) echo "gh version 2.82.0 (2025-01-01)"; exit 0 ;;
+  auth) [ "$2" = "status" ] && exit 0 || exit 1 ;;
+esac
+# `gh api repos/.../<endpoint>`: route by endpoint; mutations carry
+# --method/--input and get the single-object response.
+if [ "$1" = "api" ]; then
+  case "$*" in
+    *--method*|*--input*) cat "$DIR/api.json" ;;
+    */reviews*) cat "$DIR/reviews.json" ;;
+    */comments*) cat "$DIR/comments.json" ;;
+    */pulls/*)
+      # Bare `pulls/N` GET: echo the requested number into the fixture.
+      n=$(printf '%s' "$2" | sed -n 's|.*/pulls/\([0-9]*\).*|\1|p')
+      [ -n "$n" ] && sed "s/\"number\": [0-9]*/\"number\": $n/" "$DIR/pull.json" || cat "$DIR/pull.json"
+      ;;
+    *) cat "$DIR/api.json" ;;
+  esac
+  exit 0
+fi
+cmd="$1 $2"
+case "$cmd" in
+  "repo view") cat "$DIR/repo-view.txt" ;;
+  "pr list") cat "$DIR/pr-list.json" ;;
+  "pr view")
+    # `pr view N`: echo the requested number into the fixture.
+    n=$(printf '%s' "$3" | sed -n 's/[0-9][0-9]*/\0/p')
+    [ -n "$n" ] && sed "0,/\"number\": [0-9]*/s//\"number\": $n/" "$DIR/pr-view.json" || cat "$DIR/pr-view.json"
+    ;;
+  "pr create") cat "$DIR/pr-create-url.txt" ;;
+  "issue list") cat "$DIR/issue-list.json" ;;
+  "issue view")
+    n=$(printf '%s' "$3" | sed -n 's/[0-9][0-9]*/\0/p')
+    [ -n "$n" ] && sed "0,/\"number\": [0-9]*/s//\"number\": $n/" "$DIR/issue-view.json" || cat "$DIR/issue-view.json"
+    ;;
+  "issue create") cat "$DIR/issue-create-url.txt" ;;
+  "issue edit"|"issue close"|"issue comment"|"issue reopen") cat "$DIR/issue-view.json" ;;
+  *) echo "gh-stub: unsupported: $*" >&2; exit 1 ;;
+esac

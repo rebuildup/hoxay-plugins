@@ -4,6 +4,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import net from "node:net";
 import { tmpdir } from "node:os";
 import path from "node:path";
+import { inboxBinary } from "./helpers/inbox-bin";
 import { envValue, herdrSocketEndpoint, socketConsistentEnv, testEnv } from "./helpers/test-env";
 
 /**
@@ -130,7 +131,8 @@ describe("fake socket transport parity (#211)", () => {
 // real herdr session.
 // ---------------------------------------------------------------------------
 
-const INBOX_CLI = path.join(import.meta.dir, "..", "plugins", "inbox", "src", "cli.ts");
+// rebuildup.inbox is native since #291 (plugins/inbox/bin/inbox).
+const INBOX_BIN = inboxBinary();
 
 interface FakeLiveSocket {
   socketPath: string;
@@ -173,7 +175,7 @@ async function fakeLiveSocket(): Promise<FakeLiveSocket> {
 // per-plugin fakeHerdrSocket helpers).
 function runInboxList(env: Record<string, string>): Promise<{ status: number }> {
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, [INBOX_CLI, "list"], { env });
+    const child = spawn(INBOX_BIN, ["list"], { env });
     const timer = setTimeout(() => child.kill("SIGKILL"), 30_000);
     child.on("error", reject);
     child.on("close", (code) => {

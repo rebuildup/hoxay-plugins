@@ -1,0 +1,17 @@
+{
+  "label": "git-diff-stat",
+  "command": "bun run plugins/git/src/cli.ts diff w2:p1 --stat",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 268,
+    "p50": 420,
+    "p95": 670,
+    "p99": 749,
+    "max": 749,
+    "mean": 459.3,
+    "stdev": 120.3
+  }
+}

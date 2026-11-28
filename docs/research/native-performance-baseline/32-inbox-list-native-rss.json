@@ -1,0 +1,28 @@
+{
+  "label": "inbox-list-native-rss",
+  "command": "plugins/inbox/bin/inbox list",
+  "runs": 12,
+  "warmup": 2,
+  "failures": 0,
+  "wall_ms": {
+    "n": 12,
+    "min": 22,
+    "p50": 29,
+    "p95": 35,
+    "p99": 35,
+    "max": 35,
+    "mean": 29.2,
+    "stdev": 3
+  },
+  "rss_kb": {
+    "n": 12,
+    "min": 6656,
+    "p50": 6656,
+    "p95": 6704,
+    "p99": 6704,
+    "max": 6704,
+    "mean": 6666.7,
+    "stdev": 15.1
+  },
+  "rss_note": "max RSS of the top-level process only (children not attributed); /usr/bin/time -l overhead included"
+}

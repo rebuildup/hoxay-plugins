@@ -1,0 +1,9 @@
+[
+  {
+    "id": 101,
+    "user": { "login": "rev1" },
+    "state": "APPROVED",
+    "body": "lgtm",
+    "submitted_at": "2025-01-02T01:00:00Z"
+  }
+]

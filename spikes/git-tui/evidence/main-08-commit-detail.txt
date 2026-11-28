@@ -1,0 +1,33 @@
+# scenario=main step=08-commit-detail size=110x32 bg_rows=[]
+repo: /private/var/folders/1l/fmlzfnk57zndv1pxwwkw6xrc0000gn/T/git-tui-fixture-kbo2df1p
+commit d9261f5 — add notes
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────
+commit d9261f5999c532ba21b75d65b8719d6af9ce1a21
+Author:     tui <t@e>
+AuthorDate: Wed Jan 1 00:00:00 2025 +0000
+Commit:     tui <t@e>
+CommitDate: Wed Jan 1 00:00:00 2025 +0000
+
+    add notes
+
+diff --git a/notes.txt b/notes.txt
+new file mode 100644
+index 0000000..6cc6182
+--- /dev/null
++++ b/notes.txt
+@@ -0,0 +1 @@
++scratch notes
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                                                         1/15
+ main (no upstream) · unstaged 2 · untracked 1 · esc back · q quit

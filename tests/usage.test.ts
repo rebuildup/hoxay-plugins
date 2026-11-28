@@ -4,10 +4,15 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import net from "node:net";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { encodeClaudeCwd } from "../plugins/conversations/src/claude";
 import { aggregateUsage } from "../plugins/usage/src/aggregate";
 import type { SessionCoverageEntry, UsageEventRecord } from "../plugins/usage/src/model";
+import { conversationsBinary, conversationsPluginRootFixture } from "./helpers/conversations-bin";
 import { herdrSocketEndpoint, testEnv } from "./helpers/test-env";
+
+/** Claude project-dir encoding (was plugins/conversations/src/claude.ts). */
+function encodeClaudeCwd(cwd: string): string {
+  return cwd.replace(/[^A-Za-z0-9]/g, "-");
+}
 
 const dirs: string[] = [];
 const savedEnv: Record<string, string | undefined> = {};
@@ -43,8 +48,11 @@ afterAll(() => {
 });
 
 const USAGE_CLI = path.join(__dirname, "..", "plugins", "usage", "src", "cli.ts");
-const CONV_CLI = path.join(__dirname, "..", "plugins", "conversations", "src", "cli.ts");
-const CONV_ROOT = path.join(__dirname, "..", "plugins", "conversations");
+const CONV_CLI = conversationsBinary();
+// Runnable plugin root: the committed bin/ prebuilt is macOS-only,
+// so sibling resolution must point at a fixture linking the host binary
+// (same pattern as tests/helpers/inbox-bin.ts, Issue #291).
+const CONV_ROOT = conversationsPluginRootFixture();
 const DEAD_SOCKET = path.join(tempDir(), "no-such-herdr.sock");
 
 const CLAUDE_SESSION = "3bc481ff-60ac-491a-abd0-07c408c85e71";
@@ -94,7 +102,7 @@ function runConversationsAsync(
   extraEnv?: Record<string, string>,
 ): Promise<CliResult> {
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, [CONV_CLI, ...args], {
+    const child = spawn(CONV_CLI, args, {
       env: baseEnv(extraEnv),
     });
     let stdout = "";

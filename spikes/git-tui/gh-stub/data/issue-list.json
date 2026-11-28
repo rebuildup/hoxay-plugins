@@ -1,0 +1,16 @@
+[
+  {
+    "number": 5,
+    "title": "Forge TUI shows stale pane id",
+    "state": "OPEN",
+    "url": "https://github.com/octo/repo/issues/5",
+    "updatedAt": "2025-01-02T00:00:00Z"
+  },
+  {
+    "number": 6,
+    "title": "Diff harness flakes on tmp paths",
+    "state": "OPEN",
+    "url": "https://github.com/octo/repo/issues/6",
+    "updatedAt": "2025-01-03T00:00:00Z"
+  }
+]

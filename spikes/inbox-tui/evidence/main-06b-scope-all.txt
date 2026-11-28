@@ -1,0 +1,31 @@
+# scenario=main step=06b-scope-all size=100x30 bg_rows=[]
+ Inbox — /var/tmp/np291-herdr/config/herdr/sessions/np291/herdr.sock · scope:all 4/4
+
+❯ [settled] w1:p1                                                                                 w1
+  [snoozed→2026-11-27T22:00:08.601Z] w1:p2                                                        w1
+  w1:p3                                                                                           w1
+  w1:p4                                                                                           w1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 2 inbox · 0 attention · ? help · q quit

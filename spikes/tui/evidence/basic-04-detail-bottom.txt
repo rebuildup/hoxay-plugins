@@ -1,0 +1,31 @@
+# scenario=basic step=04-detail-bottom size=100x30 bg_rows=[]
+ ready [DETAIL]
+┌ Detail ──────────────────────────────────────────────────────────────────────────────────────────┐
+│Ambiguous width: ・αβγ・                                                                     ▲│
+│                                                                                                 █│
+│Greek + katakana middle dot are ambiguous-width; box chars ┌─┐ │ └─┘ too.                        █│
+│                                    🇵                                                         █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                       █│
+│                                                                                              █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 █│
+│                                                                                                 ║│
+│                                                                                                 ║│
+│                                                                                                 ▼│
+└─────────────────────────────────────────────────────────────────────────────────────────────��────
+? help  / filter  r refresh  d delete  Enter detail  q quit

@@ -1,0 +1,28 @@
+{
+  "label": "conv-capability-rss",
+  "command": "bun run plugins/conversations/src/cli.ts capability",
+  "runs": 12,
+  "warmup": 2,
+  "failures": 0,
+  "wall_ms": {
+    "n": 12,
+    "min": 53,
+    "p50": 63,
+    "p95": 103,
+    "p99": 103,
+    "max": 103,
+    "mean": 67.2,
+    "stdev": 12.2
+  },
+  "rss_kb": {
+    "n": 12,
+    "min": 20176,
+    "p50": 20640,
+    "p95": 21664,
+    "p99": 21664,
+    "max": 21664,
+    "mean": 20816,
+    "stdev": 498.8
+  },
+  "rss_note": "max RSS of the top-level process only (children not attributed); /usr/bin/time -l overhead included"
+}

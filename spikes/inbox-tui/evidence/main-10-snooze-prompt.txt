@@ -1,0 +1,31 @@
+# scenario=main step=10-snooze-prompt size=100x30 bg_rows=[]
+ Inbox — /var/tmp/np291-herdr/config/herdr/sessions/np291/herdr.sock · scope:inbox 1/4
+
+┌inbox─────────────────────────────────────────────────────────────────────────────────────────────┐
+│Snooze until — +30m / +2h / +1d or ISO-8601                                                       │
+│> +30m█                                                                                           │
+│(enter submit · esc cancel · placeholder: +30m)                                                   │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+│                                                                                                  │
+└──────────────────────────────────────────────────────────────────────────────────────────────────┘
+ settle w1:p3 · ? help · q quit

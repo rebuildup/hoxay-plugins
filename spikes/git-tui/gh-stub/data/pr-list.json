@@ -1,0 +1,24 @@
+[
+  {
+    "number": 7,
+    "title": "Add forge TUI parity fixes",
+    "state": "OPEN",
+    "isDraft": false,
+    "author": { "login": "octo" },
+    "headRefName": "feat/forge-parity",
+    "baseRefName": "main",
+    "updatedAt": "2025-01-02T00:00:00Z",
+    "url": "https://github.com/octo/repo/pull/7"
+  },
+  {
+    "number": 8,
+    "title": "Port git plugin CLI to Rust",
+    "state": "OPEN",
+    "isDraft": true,
+    "author": { "login": "octo" },
+    "headRefName": "292",
+    "baseRefName": "main",
+    "updatedAt": "2025-01-03T00:00:00Z",
+    "url": "https://github.com/octo/repo/pull/8"
+  }
+]

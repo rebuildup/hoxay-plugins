@@ -1,0 +1,17 @@
+{
+  "label": "git-status-native",
+  "command": "env -u HERDR_SOCKET_PATH -u HERDR_SESSION -u HERDR_PANE_ID -u HERDR_WORKSPACE_ID -u HERDR_TAB_ID -u HERDR_PLUGIN_CONTEXT_JSON -u HERDR_BIN_PATH -u HERDR_ENV -u HERDR_PLUGIN_STATE_DIR -u HERDR_PLUGIN_CONFIG_DIR -u HERDR_PLUGIN_ID -u HERDR_PLUGIN_ROOT XDG_CONFIG_HOME=/var/tmp/np287-herdr/config XDG_STATE_HOME=/var/tmp/np287-herdr/state ./plugins/git/bin/git status w2:p1 --session np287",
+  "runs": 30,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 30,
+    "min": 379,
+    "p50": 452,
+    "p95": 512,
+    "p99": 658,
+    "max": 658,
+    "mean": 459.2,
+    "stdev": 44.6
+  }
+}

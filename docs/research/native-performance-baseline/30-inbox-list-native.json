@@ -1,0 +1,17 @@
+{
+  "label": "inbox-list-native",
+  "command": "plugins/inbox/bin/inbox list",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 10,
+    "p50": 19,
+    "p95": 36,
+    "p99": 139,
+    "max": 139,
+    "mean": 24.1,
+    "stdev": 25.1
+  }
+}

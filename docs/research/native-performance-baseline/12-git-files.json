@@ -1,0 +1,17 @@
+{
+  "label": "git-files",
+  "command": "bun run plugins/git/src/cli.ts files w2:p1",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 388,
+    "p50": 488,
+    "p95": 808,
+    "p99": 1336,
+    "max": 1336,
+    "mean": 563.6,
+    "stdev": 176.7
+  }
+}

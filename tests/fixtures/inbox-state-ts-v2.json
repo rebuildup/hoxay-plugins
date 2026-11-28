@@ -1,0 +1,148 @@
+{
+  "version": 2,
+  "sessions": {
+    "SESSION_KEY_PLACEHOLDER": {
+      "w1:p1": {
+        "pane_id": "w1:p1",
+        "workspace_id": "w1",
+        "settled": {
+          "at": "2025-11-20T10:00:00.000Z",
+          "seq": 1,
+          "agent_session": {
+            "agent": "claude",
+            "kind": "session",
+            "value": "sess-abc"
+          }
+        },
+        "order": 2,
+        "links": [
+          {
+            "kind": "pr",
+            "repo": "owner/repo",
+            "number": 12,
+            "ref": "owner/repo#12",
+            "at": "2025-11-20T10:00:00.000Z",
+            "seq": 1,
+            "agent_session": {
+              "agent": "claude",
+              "kind": "session",
+              "value": "sess-abc"
+            }
+          }
+        ],
+        "updated_at": "2025-11-20T10:00:00.000Z"
+      },
+      "w1:p2": {
+        "pane_id": "w1:p2",
+        "workspace_id": "w1",
+        "snoozed": {
+          "at": "2025-11-20T10:00:00.000Z",
+          "seq": 1,
+          "until": "2099-01-01T00:00:00.000Z",
+          "agent_session": {
+            "agent": "claude",
+            "kind": "session",
+            "value": "sess-abc"
+          }
+        },
+        "updated_at": "2025-11-20T10:00:00.000Z"
+      },
+      "w1:p3": {
+        "pane_id": "w1:p3",
+        "workspace_id": "w1",
+        "pinned": {
+          "at": "2025-11-20T10:00:00.000Z",
+          "seq": 1
+        },
+        "archived": {
+          "at": "2025-11-20T10:00:00.000Z",
+          "seq": 1
+        },
+        "updated_at": "2025-11-20T10:00:00.000Z"
+      },
+      "w1:p4": {
+        "pane_id": "w1:p4",
+        "workspace_id": "w1",
+        "links": [
+          {
+            "kind": "issue",
+            "repo": "owner/repo",
+            "number": 34,
+            "ref": "owner/repo#34",
+            "at": "2025-11-20T10:00:00.000Z",
+            "seq": 1
+          }
+        ],
+        "updated_at": "2025-11-20T10:00:00.000Z"
+      }
+    }
+  },
+  "watch": {
+    "SESSION_KEY_PLACEHOLDER": {
+      "w1:p1": {
+        "owner/repo#12": {
+          "observation": {
+            "state": "OPEN",
+            "isDraft": false,
+            "mergeStateStatus": "CLEAN",
+            "mergeable": "MERGEABLE",
+            "updatedAt": "2025-11-20T10:00:00.000Z",
+            "author": "octocat",
+            "failingChecks": [],
+            "reviewKeys": [],
+            "commentKeys": []
+          },
+          "first_seen_at": "2025-11-20T10:00:00.000Z",
+          "last_checked_at": "2025-11-20T10:00:00.000Z",
+          "consecutive_failures": 0
+        }
+      }
+    }
+  },
+  "transitions": {
+    "SESSION_KEY_PLACEHOLDER": {
+      "seq": 3,
+      "dropped": 0,
+      "items": [
+        {
+          "seq": 1,
+          "at": "2025-11-20T10:00:00.000Z",
+          "kind": "settled",
+          "pane_id": "w1:p1",
+          "workspace_id": "w1",
+          "agent_status": "done",
+          "state_change_seq": 1,
+          "agent_session": {
+            "agent": "claude",
+            "kind": "session",
+            "value": "sess-abc"
+          }
+        },
+        {
+          "seq": 2,
+          "at": "2025-11-20T10:00:00.000Z",
+          "kind": "snoozed",
+          "pane_id": "w1:p2",
+          "workspace_id": "w1",
+          "agent_status": "working",
+          "state_change_seq": 1,
+          "agent_session": {
+            "agent": "claude",
+            "kind": "session",
+            "value": "sess-abc"
+          }
+        },
+        {
+          "seq": 3,
+          "at": "2025-11-20T10:00:00.000Z",
+          "kind": "cleared",
+          "pane_id": "w1:p3",
+          "workspace_id": "w1",
+          "agent_status": "done",
+          "state_change_seq": 1,
+          "cause": "pane_closed"
+        }
+      ]
+    }
+  }
+}

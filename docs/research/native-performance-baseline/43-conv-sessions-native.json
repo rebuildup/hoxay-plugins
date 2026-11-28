@@ -1,0 +1,17 @@
+{
+  "label": "conv-sessions-native",
+  "command": "./plugins/conversations/bin/conversations sessions --offline",
+  "runs": 40,
+  "warmup": 5,
+  "failures": 0,
+  "wall_ms": {
+    "n": 40,
+    "min": 10,
+    "p50": 20,
+    "p95": 54,
+    "p99": 61,
+    "max": 61,
+    "mean": 23.7,
+    "stdev": 11.4
+  }
+}

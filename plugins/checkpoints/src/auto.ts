@@ -56,7 +56,7 @@ const SETTLE_STATUSES = new Set(["idle", "done"]);
 /** A return to active work invalidates any outstanding pending mark. */
 const ACTIVE_STATUSES = new Set(["working"]);
 
-// --- Generation guard (mirrors plugins/inbox/src/model.ts semantics) ---
+// --- Generation guard (mirrors plugins/inbox/src/model.rs semantics) ---
 
 export function agentSessionRef(agent: AgentInfo | undefined): AgentSessionRef | null {
   const session = agent?.agent_session;

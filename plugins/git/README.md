@@ -8,38 +8,39 @@ Git status/diff for herdr panes (`herdr-plugins.git/v1`).
 herdr plugin install rebuildup/hoxay-plugins/plugins/git
 ```
 
-Prerequisites: herdr ≥ 0.9.0, Bun on `PATH`, `git` on `PATH`.
+Prerequisites: herdr ≥ 0.9.0, `git` on `PATH`. The plugin is a
+self-contained native binary (`bin/git`, macOS arm64); no Bun required.
 
 ## Usage
 
 ```bash
 # from the plugin root (see `herdr plugin list --json` → plugin_root)
-bun run src/cli.ts capability
-bun run src/cli.ts status <pane_id>
-bun run src/cli.ts files <pane_id> [--path PATH]...
-bun run src/cli.ts diff <pane_id> [--staged] [--stat|--name-status|--numstat]
+./bin/git capability
+./bin/git status <pane_id>
+./bin/git files <pane_id> [--path PATH]...
+./bin/git diff <pane_id> [--staged] [--stat|--name-status|--numstat]
     [--path PATH]... [--max-bytes N] [rev [rev]]
-bun run src/cli.ts log <pane_id> [--limit N] [--skip N] [--all]
+./bin/git log <pane_id> [--limit N] [--skip N] [--all]
     [--first-parent] [--author X] [--grep X] [--since X] [--until X]
     [--path PATH]...
-bun run src/cli.ts compare <pane_id> [base [head]] [--max-bytes N]
-bun run src/cli.ts stage <pane_id> [--all | --path PATH]...
-bun run src/cli.ts unstage <pane_id> [--all | --path PATH]...
-bun run src/cli.ts commit <pane_id> -m MSG [-m MSG]... [--allow-empty]
-bun run src/cli.ts branch create <pane_id> <name> [--switch]
-bun run src/cli.ts branch switch <pane_id> <name>
-bun run src/cli.ts upstream <pane_id> <upstream-ref>
-bun run src/cli.ts fetch <pane_id> [remote] [--prune]
-bun run src/cli.ts push <pane_id> [--set-upstream] [--force-with-lease]
+./bin/git compare <pane_id> [base [head]] [--max-bytes N]
+./bin/git stage <pane_id> [--all | --path PATH]...
+./bin/git unstage <pane_id> [--all | --path PATH]...
+./bin/git commit <pane_id> -m MSG [-m MSG]... [--allow-empty]
+./bin/git branch create <pane_id> <name> [--switch]
+./bin/git branch switch <pane_id> <name>
+./bin/git upstream <pane_id> <upstream-ref>
+./bin/git fetch <pane_id> [remote] [--prune]
+./bin/git push <pane_id> [--set-upstream] [--force-with-lease]
     [remote] [refspec]
-bun run src/cli.ts remote <pane_id>
-bun run src/cli.ts pr list|status|create|view|reviews|comments|checks|logs
+./bin/git remote <pane_id>
+./bin/git pr list|status|create|view|reviews|comments|checks|logs
     <pane_id> [--repo owner/name]
     pr create: --title T [--body B | --body-file PATH|-] [--draft]
         [--base B] [--head B]
     pr reviews|comments|checks <pane> <number>
     pr logs <pane> <number> [--run ID | --job ID [--lines N]]
-bun run src/cli.ts pr review|comment|reply|reviewers|merge <pane_id> [args]
+./bin/git pr review|comment|reply|reviewers|merge <pane_id> [args]
     [--repo owner/name] --expect-head <full-sha>   (required)
     pr review <pane> <number> --approve|--request-changes|--comment
         [--body B | --body-file PATH|-]
@@ -50,7 +51,7 @@ bun run src/cli.ts pr review|comment|reply|reviewers|merge <pane_id> [args]
         [--add-reviewer LOGIN[,LOGIN]...] [--remove-reviewer LOGIN...]
     pr merge <pane> <number> [--squash|--merge|--rebase]
         [--auto | --disable-auto]
-bun run src/cli.ts issue list|view|create|edit|comment|close
+./bin/git issue list|view|create|edit|comment|close
     <pane_id> [args] [--repo owner/name]
     issue list: [--limit N] [--state open|closed|all]
         [--label L]... [--assignee U]... [--author U]
@@ -60,10 +61,10 @@ bun run src/cli.ts issue list|view|create|edit|comment|close
         [--remove-assignee U]... [--state open|closed]
     issue comment <pane> <number> --body B|--body-file PATH|-
     issue close <pane> <number> [--reason completed|"not planned"]
-bun run src/cli.ts issue link|unlink|links <pane_id> [args]
+./bin/git issue link|unlink|links <pane_id> [args]
     issue link <pane> <owner>/<repo>#<n> [--verify]
     issue unlink <pane> <owner>/<repo>#<n>
-bun run src/cli.ts project <pane_id>
+./bin/git project <pane_id>
 ```
 
 `status` returns repo identity, branch/upstream/ahead-behind, and
@@ -143,7 +144,7 @@ mutations re-read `issue view` and ask on `updated_at` drift (issues
 have no head sha). `p`/`o` repoint the forge target pane /
 `--repo owner/name` override in-session.
 
-Both UIs consume this plugin's own CLI (`src/cli.ts`) for every read
+Both UIs consume this plugin's own CLI (`bin/git`) for every read
 and mutation, so the public contract stays the single source of truth.
 Opening performs reads only. Non-TTY stdin degrades to plain-text
 lists; `gh` missing renders an honest unsupported state, never fake
@@ -165,9 +166,9 @@ command = "rebuildup.git.open-forge"
 description = "open git forge TUI"
 ```
 
-For a repo checkout without herdr: `bun run src/tui.ts --cwd <path>`
-(repo surface) or `bun run src/tui-forge.ts` (forge surface).
-Non-interactive use is unchanged — `src/cli.ts` remains the CLI/MCP/GUI
+For a repo checkout without herdr: `./bin/git tui --cwd <path>`
+(repo surface) or `./bin/git tui forge --cwd <path>` (forge surface).
+Non-interactive use is unchanged — `bin/git` remains the CLI/MCP/GUI
 contract surface.
 
 ## Notes

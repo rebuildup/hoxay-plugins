@@ -1,0 +1,31 @@
+# scenario=main step=11-confirm-reconcile size=100x30 bg_rows=[]
+ Inbox — /var/tmp/np291-herdr/config/herdr/sessions/np291/herdr.sock · scope:inbox 1/4
+
+
+
+
+
+
+
+                         ┌confirm─────────────────────────────────────────┐
+                         │Run reconcile now?                              │
+                         │                                                │
+                         │session: /var/tmp/np291-herdr/config/herdr/sessi│
+                         │cli: inbox reconcile                            │
+                         │                                                │
+                         │Resolves expired snoozes and stale generation ma│
+                         │enter/y apply · esc cancel                      │
+                         │                                                │
+                         │                                                │
+                         │                                                │
+                         │                                                │
+                         └────────────────────────────────────────────────┘
+
+
+
+
+
+
+
+
+ settle w1:p3 · ? help · q quit
